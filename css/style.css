@@ -1,0 +1,49 @@
+/* =======================================
+
+		Main Stylesheet
+		
+		Building on Twitter Bootstrap
+		http://twitter.github.com/bootstrap/
+		
+========================================== */
+
+
+
+/* New styles below */
+
+	
+label.error 
+{
+	color: #b94a48;
+}
+.hover 
+{
+	background-color: rgba(179, 216, 179, 0.5);
+    color: #fff;
+    cursor:pointer;
+}
+
+.page
+{
+	background-color: rgba(222, 240, 222, 0.5);
+    border: 1px none;
+    color: green;
+    display: block;
+    float: left;
+    font-weight: bold;
+    margin: 10px;
+    padding: 0 9px;
+    text-align: center;
+    width: 0;
+}
+.date_picker 
+{
+	padding-right: 36px;
+    cursor: pointer;
+    background: url(../images/cal.jpg) center right no-repeat;
+    width:125px;
+}
+#login 
+{
+	position: relative;
+}
