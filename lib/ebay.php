@@ -9,6 +9,8 @@ class Ebay
 {
     public static function get_active_items()
     {	
+        global $token;
+
     	$data = EbayApi::get_my_ebay_selling_ActiveList(1, 100);
 
         $xml = simplexml_load_string($data);

@@ -27,7 +27,7 @@ class DB
 */
 	}
 
-	public function safe_query($q)
+	public static function safe_query($q)
 	{
 		$result = mysql_query($q);
 		if(! $result)
@@ -36,18 +36,18 @@ class DB
 
 	}
 
-	public function query($q)
+	public static function query($q)
 	{
 		return self::safe_query($q);
 	}
 
-	public function query_row($q)
+	public static function query_row($q)
 	{
 		$result = self::safe_query($q);
 		return mysql_fetch_assoc($result);
 	}
 
-	public function query_rows($q)
+	public static function query_rows($q)
 	{
 		$result = self::safe_query($q);
 		$rows = array();
@@ -56,7 +56,7 @@ class DB
 		return $rows;
 	}
 
-	public function query_value($q)
+	public static function query_value($q)
 	{
 		$result = self::safe_query($q);
 		$row = mysql_fetch_row($result);
@@ -66,7 +66,7 @@ class DB
 
 	}
 
-	public function query_values($q)
+	public static function query_values($q)
 	{
 		$result = self::safe_query($q);
 		$values = array();
@@ -76,14 +76,14 @@ class DB
 
 	}
 
-	public function insert($table, $fields, $type="INSERT")
+	public static function insert($table, $fields, $type="INSERT")
 	{
 		$query = "$type INTO $table (`".join("`,`", array_keys($fields)) . "`) VALUES ('" .
 			join("','", $fields) . "')";
 		self::safe_query($query);
 	}
 
-	public function replace($table, $fields)
+	public static function replace($table, $fields)
 	{
 		self::insert($table, $fields, 'REPLACE');
 	}

@@ -29,6 +29,6 @@ function checkNone()
 
 function update_item(id)
 {
-    console.log(id)
+    console.log('/update_item.php?id='+encodeURIComponent(id))
     location.href = '/update_item.php?id='+encodeURIComponent(id);
 }

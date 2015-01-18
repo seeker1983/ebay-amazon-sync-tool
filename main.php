@@ -3,13 +3,12 @@ require_once ('lib/config.php');
 require_once('blocks/head.php');
 ?>
 <body>
-<?
+<?php
     require_once('blocks/menu.php');
     require_once('lib/ebay.php');
     require_once('lib/vendorFunctions.php');
 
     $items = Ebay::get_active_items();
-
     
     foreach(DB::query_rows("SELECT * FROM `user_products` WHERE  `UserID`='$active_user' ORDER BY `sort`") as $item)
         $db_items[$item['ItemID']] = $item;
@@ -58,7 +57,7 @@ require_once('blocks/head.php');
                     <td> <?php echo $item->BuyItNowPrice; ?> </td>
                     <td> <?php echo (empty($db_item['VendorPrice'])?'':calculate_rec_price($db_item['VendorPrice'])); ?> </td>
                     <td> <?php echo get_vendor_from_sku($item->SKU); ?> </td>
-                    <td id='vendor_price_<?php echo $item->SKU;?>'> <?php echo ($db_item? $db_item['VendorPrice']: $update); ?></td>
+                    <td id='vendor_price_<?php echo $item->SKU;?>'> <?php echo ($db_item? $db_item['VendorPrice']: ''); ?></td>
                     <td id='vendor_quantity_<?php echo $item->SKU;?>'> <?php echo ($db_item? $db_item['VendorQty']: ''); ?></td>
                     <td> 
                         <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
