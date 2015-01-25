@@ -106,7 +106,7 @@ class EbayApi
 		return $body; 
 	}
 
-	public static function get_my_ebay_selling_ActiveList($page_no, $entries = 100)
+	public static function get_my_ebay_selling($type, $page_no, $entries = 100)
 	{
 		global $token;
 
@@ -116,13 +116,13 @@ class EbayApi
 							<eBayAuthToken>'.$token.'</eBayAuthToken>
 						  </RequesterCredentials>
 						  <Version>505</Version>
-						  <ActiveList>
-							<Sort>TimeLeft</Sort>
-							<Pagination>
+						  <'.$type.'>'
+							. ($type=='ActiveList'? '<Sort>TimeLeft</Sort>' : '' )
+							.'<Pagination>
 							  <EntriesPerPage>' . $entries .'</EntriesPerPage>
 							  <PageNumber>'.$page_no.'</PageNumber>
 							</Pagination>
-						  </ActiveList>
+						  </'.$type.'>
 						</GetMyeBaySellingRequest>';
 		
 		$body = self::callapi($post_data,"GetMyeBaySelling");
@@ -297,6 +297,13 @@ class EbayApi
 
 		
 		curl_close ($ch); // Close the connection
+
+        $xml = simplexml_load_string($body);
+        if($xml->Ack == 'Failure')
+        {
+        	xp($xml);
+        }
+
 		
 		return $body;
 		

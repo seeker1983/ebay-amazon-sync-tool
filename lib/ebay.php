@@ -7,25 +7,25 @@ foreach(glob($deps_folder . '/*.php') as $lib)
 
 class Ebay
 {
-    public static function get_active_items()
+    public static function get_items($type='ActiveList')
     {	
         global $token;
 
-    	$data = EbayApi::get_my_ebay_selling_ActiveList(1, 100);
+    	$data = EbayApi::get_my_ebay_selling($type, 1, 100);
 
         $xml = simplexml_load_string($data);
 
-        $total_pages = $xml->ActiveList->PaginationResult->TotalNumberOfPages;
-        foreach ($xml->ActiveList->ItemArray->Item as $item) 
+        $total_pages = $xml->$type->PaginationResult->TotalNumberOfPages;
+        foreach ($xml->$type->ItemArray->Item as $item) 
             $items[] = $item;  
 
         for($page =2; $page <=$total_pages; $page++)
         {
-            $data = EbayApi::get_my_ebay_selling_ActiveList($page, 100);
+            $data = EbayApi::get_my_ebay_selling_ActiveList($type, $page, 100);
 
             $xml = simplexml_load_string($data);
             
-            foreach ($xml->ActiveList->ItemArray->Item as $item) 
+            foreach ($xml->$type->ItemArray->Item as $item) 
                 $items[] = $item;            
 
         }

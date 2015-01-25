@@ -69,53 +69,74 @@ if (isset($_SESSION['username']))
 }
 ?>
 
+<style>
+body {
+  padding-top: 180px;
+  padding-bottom: 40px;
+  background-color: #eee;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+input
+{
+  margin-bottom: 20px;    
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+
 <body>
-    <div id="header" style="width:100%; height:110px; background-color:#000000;">
-        <h2 style="text-align:center; color:#FFFFFF; margin-top:0px; padding-top:20px; font-family:Georgia, 'Times New Roman', Times, serif;">Ebay Tool</h2>
-    </div>
+    <div class="container">
+
+      <form name="LoginForm" id="LoginForm" action="index.php" method="post" class="form-signin">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Login</label>
+        <input type="text" name="uname" id="uname"  class="form-control" placeholder="Login" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" name="pass" id="password" class="form-control" placeholder="Password" required>
+        <div class="checkbox">
+          <!-- <label> -->
+            <!-- <input type="checkbox" value="remember-me"> Remember me -->
+          <!-- </label> -->
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" name="signin"  type="submit">Sign in</button>
+      </form>    
+
+    </div> <!-- /container -->
 
 
-    <div style="margin:auto; width:355px; border-radius:10px; margin-top:100px; border:solid 1px #CCCCCC;">
-        <h3 style="text-align:center; font-family:'Palatino Linotype', 'Book Antiqua', Palatino, serif;">Please Sign In</h3>
-        <?php
-        if (isset($error['count'])) {
-            echo $error['count'];
-        }
-        ?>
-        <form name="LoginForm" id="LoginForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" >
 
-            <table align="center">
-                <tr>
-
-                    <td><label class="label">User Name:</label></td>
-
-                    <td><input type="text" name="uname" id="uname" class="span"  rel="tooltip" data-original-title="Enter UserName"/></td>
-                </tr>
-
-                <tr>
-                    <td><label class="label">Password:</label></td>
-                    <td><input type="password" name="pass" id="password" class="span"  rel="tooltip" data-original-title="Enter password"/></td>
-                </tr>
-
-
-                <tr>
-                    <td></td>
-                    <td align="right"><input type="submit" value="LOG IN" name="signin" id="Login" class="btn btn-success" /></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="right"><a href="register.php" class="btn btn-primary">Register</a></td>
-                </tr>
-            </table>
-        </form>
-
-
-    </div>
 
 </body>
 </html>
