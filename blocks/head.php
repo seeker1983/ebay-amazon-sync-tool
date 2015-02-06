@@ -23,6 +23,7 @@ if (!isset($_SESSION['user_id']) && parse_url($_SERVER['REQUEST_URI'], PHP_URL_P
 		<!-- include a theme, can be included into the core instead of 2 separate files -->
 		<!-- <link rel="stylesheet" href="assets/alertify/alertify.default.css" /> -->
 		<link href="css/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+		<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 		<style type="text/css">
 			  /*@import "assets/media/css/DT_bootstrap.css";*/
 			  

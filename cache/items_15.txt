@@ -1,0 +1,288 @@
+s:13200:"
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Ebay listings</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+                    <li ebay-type="ActiveList"><a href="#">Active(9)</a></li>
+                    <li ebay-type="UnsoldList"><a href="#">Unsold(0)</a></li>
+                    <li ebay-type="DeletedFromUnsoldList"><a href="#">DeletedFromUnsold(0)</a></li>
+        <!--          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+ -->       </ul>
+       <ul class="nav navbar-nav navbar-right">
+        <li><a href="log.txt">View log</a></li>
+        <li><a href="dashboard.php" onclick="return false;">Dashboard</a></li>
+        <li><a href="profile.php" onclick="return false;">Profile</a></li>
+        <li><a href="logout.php">Logout</a></li>
+      </ul> 
+    </div><!--/.nav-collapse -->
+  </div><!--/.container-fluid -->
+</nav>
+            
+<script>
+$(function()
+{
+  $('li[ebay-type]').click(function(el) {
+    $('li.active[ebay-type]').removeClass('active')
+    $('tbody[ebay-type-container]').hide()
+    $('tbody[ebay-type-container=' + $(this).attr('ebay-type') + ']').show()
+  })
+  $('li[ebay-type=ActiveList]').click()
+
+})
+</script>        <table class="table table-bordered">
+            <tr>
+                <th style="width:80px;">eBbay ID</th>
+                <th style="width:80px;">SKU</th>
+                <th style="width:320px;">Description</th>
+                <th style="width:50px;">Image</th>
+                <th style="width:50px;">Ebay price</th>
+                <th style="width:50px;">Rec. price</th>
+                <th style="width:50px;">Vendor</th>
+                <th style="width:50px;">Vendor price</th>
+                <th style="width:50px;">Vendor quantity</th>
+                <th style="width:50px;">View item</th>
+            </tr>
+                            <tbody ebay-type-container='ActiveList' style='display:none'>
+                <tr id='110155630229'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Dirt-Devil-Featherlite-Cyclonic-Bagless-Canister-Vacuum-SD40100-/110155630229" target=_blank> 110155630229 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B005ZGJ9JM" target=_blank> B005ZGJ9JM  </a></td>
+    <td> Dirt Devil Featherlite Cyclonic Bagless Canister Vacuum, SD40100  </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556302296464_1.jpg' /> </td>
+    <td> 79.82 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B005ZGJ9JM'> </td>
+    <td id='vendor_quantity_B005ZGJ9JM'> </td>
+    <td align=center> 
+        <a target=item_110155630229 href="/update_item.php?id=110155630229">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155630229')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155630229')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155663708'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Dirt-Devil-EZ-Lite-Bagless-Canister-Vacuum-SD40010-/110155663708" target=_blank> 110155663708 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B002FYTRCQ" target=_blank> B002FYTRCQ  </a></td>
+    <td> Dirt Devil EZ Lite Bagless Canister Vacuum, SD40010  </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556637086464_1.jpg' /> </td>
+    <td> 90.63 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B002FYTRCQ'> </td>
+    <td id='vendor_quantity_B002FYTRCQ'> </td>
+    <td align=center> 
+        <a target=item_110155663708 href="/update_item.php?id=110155663708">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155663708')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155663708')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155663944'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Watch-/110155663944" target=_blank> 110155663944 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B00IF3PA9A" target=_blank> B00IF3PA9A  </a></td>
+    <td> Watch  </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556639446464_1.jpg' /> </td>
+    <td> 81.87 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B00IF3PA9A'> </td>
+    <td id='vendor_quantity_B00IF3PA9A'> </td>
+    <td align=center> 
+        <a target=item_110155663944 href="/update_item.php?id=110155663944">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155663944')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155663944')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155664242'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Automatic-Watch-/110155664242" target=_blank> 110155664242 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B00LB1Z3WC" target=_blank> B00LB1Z3WC  </a></td>
+    <td> Automatic Watch </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556642426464_1.jpg' /> </td>
+    <td> 102.73 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B00LB1Z3WC'> </td>
+    <td id='vendor_quantity_B00LB1Z3WC'> </td>
+    <td align=center> 
+        <a target=item_110155664242 href="/update_item.php?id=110155664242">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155664242')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155664242')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155664339'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Trash-Can-/110155664339" target=_blank> 110155664339 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B007KRU46Q" target=_blank> B007KRU46Q  </a></td>
+    <td> Trash Can </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556643396464_1.jpg' /> </td>
+    <td> 111.44 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B007KRU46Q'> </td>
+    <td id='vendor_quantity_B007KRU46Q'> </td>
+    <td align=center> 
+        <a target=item_110155664339 href="/update_item.php?id=110155664339">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155664339')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155664339')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155664343'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Trash-Can-/110155664343" target=_blank> 110155664343 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B007KRU46Q" target=_blank> B007KRU46Q  </a></td>
+    <td> Trash Can </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556643436464_1.jpg' /> </td>
+    <td> 120.73 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B007KRU46Q'> </td>
+    <td id='vendor_quantity_B007KRU46Q'> </td>
+    <td align=center> 
+        <a target=item_110155664343 href="/update_item.php?id=110155664343">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155664343')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155664343')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155664347'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Trash-Can-/110155664347" target=_blank> 110155664347 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B007KRU46Q" target=_blank> B007KRU46Q  </a></td>
+    <td> Trash Can </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101556643476464_1.jpg' /> </td>
+    <td> 120.73 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B007KRU46Q'> </td>
+    <td id='vendor_quantity_B007KRU46Q'> </td>
+    <td align=center> 
+        <a target=item_110155664347 href="/update_item.php?id=110155664347">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155664347')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155664347')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155707457'>
+    <td> <a href="http://cgi.sandbox.ebay.com/watch-/110155707457" target=_blank> 110155707457 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B00IF3PGQM" target=_blank> B00IF3PGQM  </a></td>
+    <td> The watch </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101557074576464_1.jpg' /> </td>
+    <td> 81.16 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B00IF3PGQM'> </td>
+    <td id='vendor_quantity_B00IF3PGQM'> </td>
+    <td align=center> 
+        <a target=item_110155707457 href="/update_item.php?id=110155707457">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155707457')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155707457')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+<tr id='110155717768'>
+    <td> <a href="http://cgi.sandbox.ebay.com/Drill-Doctor-DD350X-Drill-Bit-Sharpener-/110155717768" target=_blank> 110155717768 </a></td>
+    <td> <a href="http://www.amazon.com/dp/B000BKX9CU" target=_blank> B000BKX9CU  </a></td>
+    <td> Drill Doctor DD350X Drill Bit Sharpener  </td>
+    <td> <img src='http://thumbs.sandbox.ebaystatic.com/pict/1101557177686464_1.jpg' /> </td>
+    <td> 67.63 </td>
+    <td>  </td>
+    <td> <font color=cyan> Amazon </font> </td>
+    <td id='vendor_price_B000BKX9CU'> </td>
+    <td id='vendor_quantity_B000BKX9CU'> </td>
+    <td align=center> 
+        <a target=item_110155717768 href="/update_item.php?id=110155717768">
+            <button class="btn btn-primary" type="button">View</button>
+        </a>
+<!--         <a href="#" onclick="update_item('110155717768')">
+            <button class="btn btn-info" type="button">Revise</button>
+        </a>
+                        <a href="#" onclick="update_item('110155717768')">
+            <button class="btn btn-warning" type="button">Drop</button>
+        </a>
+ -->            </td>
+</tr>
+
+
+                    </tbody>
+                                    <tbody ebay-type-container='UnsoldList' style='display:none'>
+                                    </tbody>
+                                    <tbody ebay-type-container='DeletedFromUnsoldList' style='display:none'>
+                                    </tbody>
+                       </table>
+       ";

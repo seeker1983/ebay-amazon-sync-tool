@@ -8,11 +8,11 @@
     <td> <?php echo get_vendor_from_sku($item->SKU); ?> </td>
     <td id='vendor_price_<?php echo $item->SKU;?>'> <?php echo ($db_item? $db_item['VendorPrice']: ''); ?></td>
     <td id='vendor_quantity_<?php echo $item->SKU;?>'> <?php echo ($db_item? $db_item['VendorQty']: ''); ?></td>
-    <td> 
-        <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
-            <button class="btn btn-primary" type="button">Refresh</button>
+    <td align=center> 
+        <a target=item_<?php echo $item->ItemID;?> href="/update_item.php?id=<?php echo $item->ItemID;?>">
+            <button class="btn btn-primary" type="button">View</button>
         </a>
-        <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
+<!--         <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
             <button class="btn btn-info" type="button">Revise</button>
         </a>
         <?php if($type !=='ActiveList') { ?>
@@ -24,7 +24,7 @@
         <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
             <button class="btn btn-warning" type="button">Drop</button>
         </a>
-        <?php } ?>
+ -->        <?php } ?>
     </td>
 </tr>
 

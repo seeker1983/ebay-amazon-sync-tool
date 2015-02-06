@@ -4,6 +4,8 @@ $start_time = time("now");
 require_once('lib/config.php');
 require_once('lib/ebay.php');
 require_once('lib/scrape.php');
+require_once('blocks/head.php');
+require_once('blocks/menu.php');
 
 Log::push('----- Cron job started -----');
 
@@ -14,93 +16,70 @@ if(isset($_GET['id']))
     $item = Ebay::get_item($id);
     $sku = $item->SKU;
 
-    xd(scrap_item($sku));
+//    xd(scrap_item($sku));
 }
+?>
+    <body>
+    
 
-xd(1);
+<!--     <div id="ShowResults" style="margin:auto; width:98%;">
+        <div style="height:50px;">
+            <a href="add_asin.php" style="color:#FFFFFF; font-weight:bold;"><button class="btn btn-info disabled" type="button">Add Asin</button></a>  
+            <a href="grab_amazon.php" style="color:#FFFFFF; font-weight:bold;"><button class="btn btn-success" data-loading-text="Loading..." type="button">Fetch Asin Details</button></a>
+            <a href="ebay_edit.php" style="color:#FFFFFF; font-weight:bold;"><button class="btn btn-inverse" type="button">Edit Ebay Settings</button></a>
+            <a href="send_to_ebay.php" style="color:#FFFFFF; font-weight:bold;"><button class="btn btn-danger" type="button">Add to Ebay</button></a>
+            <a href="view_ebay_data.php" style="color:#FFFFFF; font-weight:bold;"><button class="btn btn-warning" type="button">View Ebay Listings</button></a>
 
-$users = DB::query_rows("SELECT * from ebay_users");
+        </div>
+        <div style="clear:both;"></div>
+ -->    
+    
+<div class="container-fluid span14" style="margin-top: 0px">
+    
+    <div class="row-fluid">
+        
+      <section id="global" class="span14">
+          
+            <div class="row-fluid">
+        
+        <section id="global" class="span12">
+        <fieldset class="form-horizontal">
+        <legend>Amazon Fetching Product </legend>
 
-touch('lock');
+            <form id="amazonForm" class="form-horizontal" action="" method="post">
+                <fieldset>
 
-foreach($users as $user) 
-{
-    $user_id = $user['user_id'];
+                <!-- Form Name -->
+                
 
-    $DEVNAME = trim($user['dev_name']);
-    $APPNAME = trim($user['app_name']);
-    $CERTNAME = trim($user['cert_name']);
-    $token = decrypt($user['token']);
+                <!-- Text input-->
 
-    $paypal_email = trim($user['paypal_address']);
+                
+                <div class="control-group">
+                  <label class="control-label" for="searchField">Asin Or Amazon Url</label>
+                  <div class="controls">
+                    <input id="asinID" name="asin" placeholder="enter Asin Code" class="input-large" type="text">
+                    <input id="filename" name="upfile" type="hidden" value="">                    
+                  </div>
+                </div>
+                    <div class="control-group">
+                  <label class="control-label" for="searchField">Number of products</label>
+                  <div class="controls">
+                    <input id="nbprodamaz" name="numberprod" placeholder="enter Number of products" class="input-medium" type="text">
+                    
+                  </div>
+                </div>
+               
+    <div class="control-group">
+                  <div class="controls">
+                    <button type="submit" id="searchWord" name="searchWord" class="btn btn-primary">upload</button>
+                  </div>
+                </div>
+        </fieldset>
+   </form>
+    <div class="spacer"></div>
+       
 
-    DB::query("update `user_products` set `Qty`='-1' where `UserID`='$user_id'");
-
-    $items = Ebay::get_active_items();
-
-    foreach ($items as $num =>$item) 
-    {
-        /* Load item data from vendor site */
-
-        $result = scrap_item($item->SKU);
-
-        if(empty($result['offerprice']))
-        {
-          $result['offerprice'] = 0;
-          $result['quantity'] = 0;
-        }
-
-        /* Check if item exists */
-
-        $current = DB::query_row("SELECT VendorQty from `user_products` where ItemID='$item->ItemID'");
-
-        if($current && $current['VendorQty']>0 && $result['quantity'] == 0)
-            mail('jgiven1@gmail.com', "$item->Title OUT of stock", "Item $item->ViewItemURL is out of stock.");
-
-        if($current)
-        {
-            $sql = "UPDATE `user_products` SET `VendorPrice` = '${result['offerprice']}',
-                  `VendorQty` = '${result['quantity']}',
-                  `Qty` = '$ebay_quantity'
-                   WHERE `user_products`.`ItemID` ='$item->ItemID'";
-        }
-        else
-        {   
-            $sql = "INSERT INTO  `user_products` (
-                `UserID` ,
-                `ItemID` ,
-                `Qty` ,
-                `Price` ,
-                `Title` ,
-                `SKU` ,
-                `Image` ,
-                `ItemUrl` ,
-                `VendorPrice` ,
-                `VendorQty`,
-                `ProfitRatio`,
-                `VendorUrl`,
-                `sort`
-                )
-                VALUES (
-                '$user_id',  '$item->ItemID',  '$ebay_quantity',  '$item->BuyItNowPrice',
-                '$item->Title',  '$item->SKU',  
-                '$item->PictureDetails->GalleryURL',
-                '$item->ListingDetails->ViewItemURL', 
-                 '${result['offerprice']}',  '${result['quantity']}',
-                 '15.00',
-                 '${result['url']}',
-                 '$num'
-            )";
-        }
-        if(file_exists('stop'))
-            xd('Interrupted');
-
-        DB::query($sql);
-        Log::push(str_replace("\n", '', $sql));
-
-        print($sql . "<br>");
-        sleep(2);
-    }
-}
-unlink('lock');
-
+    
+</body>
+</html>

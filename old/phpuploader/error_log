@@ -1,0 +1,30 @@
+[21-Aug-2014 06:48:17 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'copy(../../assets/upload/listprod.xls) [<a href='function.copy'>function.copy</a>]: failed to open stream: No such file or directory , failed to copy /tmp/uploadertemp/uploading.d54dec1b-5ec8-de19-f936-df48ec92653c.listprod.xls.resx to ../../assets/upload/listprod.xls' , at /home4/baycodes/public_html/pr/md/amazonaffiliate/Services/phpuploader/include_phpuploader.php line 1350' in /home4/baycodes/public_html/pr/md/amazonaffiliate/Services/phpuploader/include_phpuploader.php:185
+Stack trace:
+#0 /home4/baycodes/public_html/pr/md/amazonaffiliate/Services/phpuploader/include_phpuploader.php(1350): PhpUploader_Copy('/home4/baycodes...', 1350, '/tmp/uploaderte...', '../../assets/up...')
+#1 /home4/baycodes/public_html/pr/md/amazonaffiliate/Services/phpuploader/ajaxuploaderhandler.php(45): PhpUploadFile->CopyTo('../../assets/up...')
+#2 {main}
+  thrown in /home4/baycodes/public_html/pr/md/amazonaffiliate/Services/phpuploader/include_phpuploader.php on line 185
+[14-Oct-2014 11:39:56 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'copy(../../assets/uploads/asins_amazon.csv): failed to open stream: No such file or directory , failed to copy /tmp/uploadertemp/uploading.a963b03c-64a9-9482-56f3-1399469b459b.asins_amazon.csv.resx to ../../assets/uploads/asins_amazon.csv' , at /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php line 1350' in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php:185
+Stack trace:
+#0 /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php(1350): PhpUploader_Copy('/home4/baycodes...', 1350, '/tmp/uploaderte...', '../../assets/up...')
+#1 /home4/baycodes/public_html/cl/ezonlister/phpuploader/ajaxuploaderhandler.php(45): PhpUploadFile->CopyTo('../../assets/up...')
+#2 {main}
+  thrown in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php on line 185
+[14-Oct-2014 11:40:25 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'copy(../../assets/uploads/Classeur1.xls): failed to open stream: No such file or directory , failed to copy /tmp/uploadertemp/uploading.7483089d-c7cd-e3d6-42b5-3d9a3b4fb127.Classeur1.xls.resx to ../../assets/uploads/Classeur1.xls' , at /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php line 1350' in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php:185
+Stack trace:
+#0 /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php(1350): PhpUploader_Copy('/home4/baycodes...', 1350, '/tmp/uploaderte...', '../../assets/up...')
+#1 /home4/baycodes/public_html/cl/ezonlister/phpuploader/ajaxuploaderhandler.php(45): PhpUploadFile->CopyTo('../../assets/up...')
+#2 {main}
+  thrown in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php on line 185
+[14-Oct-2014 11:43:05 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'copy(uploads/asins_amazon.csv): failed to open stream: No such file or directory , failed to copy /tmp/uploadertemp/uploading.31102f90-7859-2d60-50d8-2efc5a59bb5e.asins_amazon.csv.resx to uploads/asins_amazon.csv' , at /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php line 1350' in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php:185
+Stack trace:
+#0 /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php(1350): PhpUploader_Copy('/home4/baycodes...', 1350, '/tmp/uploaderte...', 'uploads/asins_a...')
+#1 /home4/baycodes/public_html/cl/ezonlister/phpuploader/ajaxuploaderhandler.php(45): PhpUploadFile->CopyTo('uploads/asins_a...')
+#2 {main}
+  thrown in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php on line 185
+[14-Oct-2014 11:45:22 America/Chicago] PHP Fatal error:  Uncaught exception 'Exception' with message 'copy(../../uploads/asins_amazon.csv): failed to open stream: No such file or directory , failed to copy /tmp/uploadertemp/uploading.c918b00a-d65b-8b07-3e18-e6dcbdbdd41d.asins_amazon.csv.resx to ../../uploads/asins_amazon.csv' , at /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php line 1350' in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php:185
+Stack trace:
+#0 /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php(1350): PhpUploader_Copy('/home4/baycodes...', 1350, '/tmp/uploaderte...', '../../uploads/a...')
+#1 /home4/baycodes/public_html/cl/ezonlister/phpuploader/ajaxuploaderhandler.php(45): PhpUploadFile->CopyTo('../../uploads/a...')
+#2 {main}
+  thrown in /home4/baycodes/public_html/cl/ezonlister/phpuploader/include_phpuploader.php on line 185
