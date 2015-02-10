@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <meta name="viewport" content="width=device-width"/>
         <title>Ebay Amazon Orders Management</title>
-        	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
+      	<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" type="text/css" href="assets/fancyBox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
         <!-- include the core styles -->
 		<link rel="stylesheet" href="assets/alertify/alertify.core.css" />

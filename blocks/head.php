@@ -16,8 +16,8 @@ if (!isset($_SESSION['user_id']) && parse_url($_SERVER['REQUEST_URI'], PHP_URL_P
         <meta name="viewport" content="width=device-width"/>
         <title>Ebay Amazon Orders Management</title>
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-<!--         <link href="css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
- -->		<!-- <link rel="stylesheet" type="text/css" href="assets/fancyBox/source/jquery.fancybox.css?v=2.1.5" media="screen" /> -->
+         <link href="css/bootstrap-combined.min.css" rel="stylesheet" type="text/css" />
+ 		<!-- <link rel="stylesheet" type="text/css" href="assets/fancyBox/source/jquery.fancybox.css?v=2.1.5" media="screen" /> -->
         <!-- include the core styles -->
 		<!-- <link rel="stylesheet" href="assets/alertify/alertify.core.css" /> -->
 		<!-- include a theme, can be included into the core instead of 2 separate files -->

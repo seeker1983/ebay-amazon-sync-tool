@@ -83,7 +83,15 @@ if(isset($_POST['do']))
     );
   if($user['group']=='admin')
     {
-        $data['user_id'] = empty($_POST['add']) && !empty($_POST['user_id']) ? intval($_POST['user_id']) : '';
+        if(!empty($_POST['add']))
+          $data['user_id'] = '';
+        else
+        {
+          if(!empty($_POST['user_id']))
+              $data['user_id'] = intval($_POST['user_id']);
+          elseif(!empty($_GET['user_id']))
+              $data['user_id'] = intval($_GET['user_id']);
+        }
     }
     else
     {
@@ -132,7 +140,7 @@ require_once('blocks/menu.php');
                 <td width="20%"><div align="center">First Name</div></td>
                 <td width="80%"><input type="text" name="first_name" autocomplete="off" value="<?php echo $user_info['first_name']; ?>"/></td>
                 <input type="hidden" name="id" value="<?php echo $user_info['user_id']?$user_info['user_id']:0; ?>"/></td>
-                <input type="hidden" name="add" value="<?php echo $_GET['add']?1:0; ?>"/></td>
+                <input type="hidden" name="add" value="<?php echo empty($_GET['add'])?0:1; ?>"/></td>
 
             </tr>
             <tr>

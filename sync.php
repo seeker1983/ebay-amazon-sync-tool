@@ -44,7 +44,7 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 			if(is_file($file))
 			{
 				@mkdir(pathinfo($dest, PATHINFO_DIRNAME), 0777, true);
-				if($line[0] == 'M')
+				if($line[0] == 'M' || $line[0] == 'A')
 				{
 				if(copy($file, $dest))
 					echo("$file -> $dest OK\n");
@@ -64,7 +64,7 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 			{
 				if($line[0] == 'D')
 					@rmdir($dest);			
-				if($line[0] == 'M')
+				if($line[0] == 'M' || $line[0] == 'A')
 					@mkdir($dest, 0777, true);			
 			}
 		}

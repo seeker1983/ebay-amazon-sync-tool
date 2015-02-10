@@ -1,5 +1,5 @@
 <div class="page-header" style="background-color:#000000;">
-    <h2 style="text-align:center; color:#FFFFFF; margin-top:0px; padding-top:20px; font-family:Georgia, 'Times New Roman', Times, serif;">Ebay - Amazon Tool</h2>
+    <h2 style="text-align:center; color:#FFFFFF; margin-top:0px; padding-top:20px; font-family:Georgia, 'Times New Roman', Times, serif;"><a style="color:white" href="/"> Ebay - Amazon Tool</a></h2>
     <p style="color:#FFF; margin:auto; text-align:center; font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;"><?php
         echo 'Hello ';
         if (isset($_SESSION['username'])) {
