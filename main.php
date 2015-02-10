@@ -35,7 +35,7 @@ require_once('blocks/head.php');
                 <th style="width:50px;">Vendor</th>
                 <th style="width:50px;">Vendor price</th>
                 <th style="width:50px;">Vendor quantity</th>
-                <th style="width:50px;">View item</th>
+                <th style="width:80px;">Manage</th>
             </tr>
         <?php
 

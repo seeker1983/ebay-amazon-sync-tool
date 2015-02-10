@@ -7,7 +7,7 @@ require_once('lib/scrape.php');
 
 if(isset($_GET['user_id']))
 {
-    $users = array(DB::query_row("SELECT * from ebay_users where `user_id`='$user_id'"));
+    $users = array(DB::query_row("SELECT * from ebay_users where `user_id`='${_GET['user_id']}'"));
     $lock_file = LOCK_FILE . '_' . $_GET['user_id'];
 }
 else
@@ -16,7 +16,7 @@ else
     $lock_file = LOCK_FILE . '';
 }
 
-if(!Lock::lock($lock_file, $line, 1*3600))
+if(!Lock::lock($lock_file, "LOCK", 0*3600))
 {
     die('Another instance is already running: ' . Lock::get_msg($lock_file));
 }
@@ -30,14 +30,13 @@ foreach($users as $user)
     $DEVNAME = trim($user['dev_name']);
     $APPNAME = trim($user['app_name']);
     $CERTNAME = trim($user['cert_name']);
-    $token = decrypt($user['token']);
 
     $paypal_email = trim($user['paypal_address']);
 
 //    DB::query("update `user_products` set `VendorPrice`='',  `VendorQty` = '' where `UserID`='$user_id'");
 
 
-    $items = Ebay::get_active_items();
+    $items = Ebay::get_items();
 
     foreach ($items as $num =>$item) 
     {

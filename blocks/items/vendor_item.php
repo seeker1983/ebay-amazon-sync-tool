@@ -15,16 +15,17 @@
 <!--         <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
             <button class="btn btn-info" type="button">Revise</button>
         </a>
+-->
         <?php if($type !=='ActiveList') { ?>
-        <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
+        <a href="/update.php?action=relist&id=<?php echo $item->ItemID;?>">
             <button class="btn btn-success" type="button">Relist</button>
         </a>
         <?php } ?>
         <?php if($type ==='ActiveList') { ?>
-        <a href="#" onclick="update_item('<?php echo $item->ItemID;?>')">
+        <a href="/update.php?action=drop&id=<?php echo $item->ItemID;?>">
             <button class="btn btn-warning" type="button">Drop</button>
         </a>
- -->        <?php } ?>
+        <?php } ?>
     </td>
 </tr>
 

@@ -35,8 +35,10 @@
  -->       </ul>
        <ul class="nav navbar-nav navbar-right">
         <li><a href="log.txt">View log</a></li>
-        <li><a href="dashboard.php" onclick="return false;">Dashboard</a></li>
-        <li><a href="profile.php" onclick="return false;">Profile<?php //echo $_SESSION['username']; ?></a></li>
+        <? if ($GLOBALS['user']['group'] == 'admin') { ?>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <? } ?>
+        <li><a href="profile.php"">Profile<?php //echo $_SESSION['username']; ?></a></li>
         <li><a href="logout.php">Logout</a></li>
       </ul> 
     </div><!--/.nav-collapse -->

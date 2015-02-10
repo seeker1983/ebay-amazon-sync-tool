@@ -94,6 +94,9 @@ else if(isset($_GET['url']))
                     <textarea id="desc" name="desc">
                         <span style="font-size:20px"><b style="font-size: 20px;">Product Description:</b></span>
                         <br/><br/>
+                        <?php echo $_GET['desc']; ?>
+                        <br/><br/>
+                        <b>Features</b><br>
                         <?php 
                         $features = array_map(function($el){return '<li>' . $el . '</li>';}, $item['features']);
                         echo implode("\n", $features); 

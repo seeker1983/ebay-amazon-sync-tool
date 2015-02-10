@@ -7,8 +7,7 @@ require_once('lib/image/watermark.php');
 require_once('blocks/head.php');
 require_once('blocks/menu.php');
 require_once('lib/ebay/upload_picture.php');
-require_once('lib/ebay-sdk.php');
-require_once('lib/ebay/add_item.php');
+require_once('lib/ebay/item.php');
 
 if(!isset($_POST['do']))
   Send404();

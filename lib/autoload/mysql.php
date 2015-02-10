@@ -83,6 +83,13 @@ class DB
 		self::safe_query($query);
 	}
 
+	public static function update($table, $fields, $where = '')
+	{
+		$query = "$type INTO $table (`".join("`,`", array_keys($fields)) . "`) VALUES ('" .
+			join("','", $fields) . "')";
+		self::safe_query($query);
+	}
+
 	public static function replace($table, $fields)
 	{
 		self::insert($table, $fields, 'REPLACE');

@@ -4,6 +4,8 @@ use \DTS\eBaySDK\Trading\Services;
 use \DTS\eBaySDK\Trading\Types;
 use \DTS\eBaySDK\Trading\Enums;
 
+require_once('lib/ebay-sdk.php');
+
 function ebay_add_item($item_data)
 {
 	global $service, $token, $user;
@@ -144,6 +146,50 @@ function ebay_add_item($item_data)
 	 * For more information about working with the service response object, see:
 	 * http://devbay.net/sdk/guides/getting-started/#response-object
 	 */
+
+ 	return $response;	
+}
+
+function ebay_drop_item($item_id)
+{
+	global $service, $token, $user;
+
+	$request = new Types\EndFixedPriceItemRequestType();
+
+
+	$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+	$request->RequesterCredentials->eBayAuthToken = $token;
+
+	$request->EndingReason = "NotAvailable";
+	$request->ItemID=$item_id;
+
+		$response = $service->EndFixedPriceItem($request);
+
+//  xpe($service->logger());
+
+ 	return $response;	
+}
+
+function ebay_relist_item($item_id)
+{
+	global $service, $token, $user;
+
+	$request = new Types\RelistFixedPriceItemRequestType();
+
+
+	$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+	$request->RequesterCredentials->eBayAuthToken = $token;
+
+	$item = new Types\ItemType();
+	$item->Quantity = 1;
+	$item->ItemID = $item_id;
+
+	//$item->StartPrice = new Types\AmountType(array('value' => floatval($item_data['price'])));
+
+	$request->Item=$item;
+	$response = $service->RelistFixedPriceItem($request);
+
+//  xpe($service->logger());
 
  	return $response;	
 }
