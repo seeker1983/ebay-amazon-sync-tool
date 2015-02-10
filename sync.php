@@ -69,6 +69,13 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 			}
 		}
 	}
-	echo "Revision set to $new_id\n";
-	file_put_contents($id_file, $new_id);
+	if($new_id != $last_id)
+	{
+		echo "Revision set to $new_id\n";
+		file_put_contents($id_file, $new_id);		
+	}
+	else
+	{
+		echo "Revision is up-to-date\n";
+	}
 }
