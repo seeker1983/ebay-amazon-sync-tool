@@ -85,10 +85,14 @@ class DB
 
 	public static function update($table, $fields, $where = '')
 	{
-		$query = "$type INTO $table (`".join("`,`", array_keys($fields)) . "`) VALUES ('" .
-			join("','", $fields) . "')";
+		$query = "update `$table` set ";
+		foreach ($fields as $key => $value) {
+			$query .= "`$key` = '$value',";
+		}
+		$query = rtrim($query, ",") . $where;
 		self::safe_query($query);
 	}
+
 
 	public static function replace($table, $fields)
 	{
