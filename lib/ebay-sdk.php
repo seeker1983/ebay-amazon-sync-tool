@@ -1,7 +1,7 @@
 <?php
-namespace Ebay;
-
 require_once 'ebay-sdk/vendor/autoload.php';
+
+global $user, $service, $token;
 
 $config = array(
     'sandbox' => array( 
@@ -58,9 +58,12 @@ if(DEBUG)
     $service->logger($logger);
 }
 
+function show_log()
+{
+    global $logger;
 
-
-
+    xp($logger);
+}
 
 function show_response_errors($response)
 {

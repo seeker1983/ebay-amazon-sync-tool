@@ -5,7 +5,7 @@ $deps_folder = pathinfo(__FILE__,PATHINFO_DIRNAME) . '/' . pathinfo(__FILE__,PAT
 foreach(glob($deps_folder . '/*.php') as $lib)
     require_once($lib);
 
-class Ebay
+class Ebay_deprecated
 {
     public static function get_items($type='ActiveList')
     {	

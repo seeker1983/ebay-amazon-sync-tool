@@ -2,20 +2,40 @@
 
 class Log
 {
-	private static $log_file='./log.txt';
-
 	public function __construct()
 	{
 	}
 
-	public static function clear()
+	public static function get_default_log_file()
 	{
-		unlink(self::$log_file);
+		return 'log.txt';
+	}
+
+	public static function clear($file = null)
+	{
+		if(is_null($file))
+			$file = self::get_default_log_file();
+		
+		@unlink($file);
 	}
 
 	public static function push($msg)
 	{
-		$fid = fopen(self::$log_file, "a");
+		self::custom(self::get_default_log_file(), $msg);
+	}
+
+	public static function custom($file, $msg)
+	{
+		$user_id = isset($GLOBALS['user']['user_id']) ? $GLOBALS['user']['user_id'] : "system";
+
+		$file = 'log/' . $user_id . '/' . $file;
+
+		if(!file_exists($file))
+		{
+			@mkdir(pathinfo($file, PATHINFO_DIRNAME), 0777, true);
+		}
+
+		$fid = fopen($file, "a");
 
 		fwrite($fid, '' . date('d.m.y H:i:s') . " $msg \n");
 

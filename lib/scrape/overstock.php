@@ -17,23 +17,18 @@ function scrap_overstock($itemid)
 
     if($curl_result['http_code'] == 200)
     {
-        $html = str_get_html($curl_result['content']);
-        xs($curl_result['content']);
+        $document = phpQuery::newDocument($curl_result['content']);
+        $html=str_get_html($curl_result['content']);
 
-        $price_string = $html->find('span[itemprop=price]');
-        xd($price_string);
-        $result['offerprice'] = preg_replace('%^.*?(\d+\.\d\d.).*$%', '\1', $price_string);
-        
-        $result['quantity'] = count($html->find('#addCartMain_quantity option'));
-        $result['prime'] = $result['quantity'] && $result['price']? 'Yes' : 'No';
+        $result['offerprice'] =str_replace('$', '', pq_get_first_text('span[itemprop=price]'));
+        $result['quantity'] = count($document->find('#addCartMain_quantity option'));
+        $result['prime'] = $result['quantity'] && $result['offerprice']? 'Yes' : 'No';
         $result['scrapok'] = true;
     }
     else
     {
         $result['scrapok'] = false;
     }
-    
-    
     return $result;
     
 }

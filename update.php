@@ -5,17 +5,18 @@ require_once('lib/config.php');
 require_once('lib/scrape.php');
 require_once('blocks/head.php');
 
-require_once('lib/ebay/item.php');
+require_once('lib/item.php');
 
 if(!empty($_GET['action']) && !empty($_GET['id']))
 {
+  $item = new Item(intval($_GET['id']))
     switch ($_GET['action']) {
       case 'drop':
-        $response = ebay_drop_item($_GET['id']);
+          $response = $item->drop();
       break;
       
       case 'relist':
-        $response = ebay_relist_item($_GET['id']);
+          $response = $item->relist();
       break;
       
       default:

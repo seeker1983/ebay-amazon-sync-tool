@@ -14,6 +14,8 @@ if($_SERVER['HTTP_HOST'] === 'ezonsync.ru')
 	$db_name = "ezonsync";
 	$db_username = "root";
 	$db_pass = "";	
+
+	define('LOCAL_SERVER', TRUE);
 }
 else
 {
@@ -21,6 +23,8 @@ else
 	$db_name = "ezonsync";
 	$db_username = "sam";
 	$db_pass = "sam1234";	
+
+	define('LOCAL_SERVER', FALSE);
 }
 
 foreach(glob('lib/autoload/*.php') as $lib)

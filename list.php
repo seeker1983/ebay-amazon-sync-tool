@@ -108,23 +108,11 @@ else if(isset($_GET['url']))
                   </div>
                 </div>
 
-                <div class="control-group">
-                  <label class="control-label" for="searchField">Profit </label>
-                  <div class="controls">
-                      <input id="vendor-price" disabled placeholder="Vendor price" style='width:120px !important' type="text"
-                      value="<?php echo isset($item['offerprice'])?htmlentities($item['offerprice']):''; ?>"> * 
-                      <input id="profit-pc"  placeholder="Profit %" style='width:120px !important' type="text" value="0.15"> = 
-                      <input id="profit-raw" placeholder="Profit $" style='width:120px !important' type="text">
-                  </div>
-                </div>
+                <? 
+                   $vendor_price = @floatval($item['offerprice']);
+                   require('blocks/price_block.php'); 
+                ?>
 
-                <div class="control-group">
-                  <label class="control-label" for="searchField">Price</label>
-                  <div class="controls">
-                    <input id="price" name="price" placeholder="" class="input-medium" type="text">                    
-                  </div>
-                </div>
-               
                 <? foreach(array_values($item['img']) as $i => $img) { ?>
                   <div class="control-group">
                     <label class="control-label" for="searchField">Pictures</label>
@@ -151,25 +139,6 @@ else if(isset($_GET['url']))
         </fieldset>
    </form>
     <div class="spacer"></div>
-<script>
-$(function(){
-  $('#vendor-price').change(function(){
-    $('#profit-raw').val(parseFloat($('#vendor-price').val()) * parseFloat($('#profit-pc').val()))
-    $('#price').val(((parseFloat($('#vendor-price').val()) + parseFloat($('#profit-raw').val()))/0.85).toFixed(2))
-  })
-  $('#profit-raw').change(function(){
-    $('#profit-pc').val(((parseFloat($('#profit-raw').val())) / parseFloat($('#vendor-price').val())).toFixed(2))
-    $('#price').val(((parseFloat($('#vendor-price').val()) + parseFloat($('#profit-raw').val()))/0.85).toFixed(2))
-  })
-
-  $('#profit-pc').change(function(){
-    $('#profit-raw').val(parseFloat($('#vendor-price').val()) * parseFloat($('#profit-pc').val()))
-    $('#price').val(((parseFloat($('#vendor-price').val()) + parseFloat($('#profit-raw').val()))/0.85).toFixed(2))
-  })
-
-  $('#vendor-price').change();
-})
-</script>       
 
     
 </body>

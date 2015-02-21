@@ -20,7 +20,7 @@ require_once('blocks/head.php');
         $itemTypes = array( "ActiveList", "UnsoldList", "DeletedFromUnsoldList");
 
         foreach($itemTypes as $type)
-            $items[$type] = Ebay::get_items($type);
+            $items[$type] = Ebay_deprecated::get_items($type);
 
         require('blocks/listing_type_navbar.php');
         ?>
@@ -34,6 +34,7 @@ require_once('blocks/head.php');
                 <th style="width:50px;">Rec. price</th>
                 <th style="width:50px;">Vendor</th>
                 <th style="width:50px;">Vendor price</th>
+                <th style="width:50px;">Profit %</th>
                 <th style="width:50px;">Vendor quantity</th>
                 <th style="width:80px;">Manage</th>
             </tr>
