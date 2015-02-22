@@ -1,6 +1,6 @@
 <?php
 define('EBAY_CHARGE', 0.15);
-require_once("lib\ebay\item.php");
+require_once("lib/ebay/item.php");
 
 class Item
 {
@@ -77,7 +77,7 @@ class Item
 	{
 		if(!$this->vendor_data)
 		{			
-			require_once("lib\scrape.php");
+			require_once("lib/scrape.php");
 
 			if(is_null($sku))
 				$sku = $this->sku;
@@ -179,7 +179,7 @@ class Item
     
     function update_ebay()
     {
-    	require_once("lib\ebay\item.php");
+    	require_once("lib/ebay/item.php");
 
         $this->log("Updated: price: $price, quantity: $quantity");
 
