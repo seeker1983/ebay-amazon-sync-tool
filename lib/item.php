@@ -125,13 +125,16 @@ class Item
 	
 	public function log($msg)
 	{
+        $line = "<a href='" . $this->local_data['ItemUrl']  . "'>".$this->local_data['Title']."</a>" . "(<a href='" . $this->local_data['VendorUrl']  . "'>".$this->local_data['SKU']."</a>) " . $msg;
 		Log::custom("item_$this->item_id.txt", $msg);
-		Log::push($msg);
+		Log::push($line);
 	}
 
 	public function update()
 	{
 		$this->scrape();
+
+        xp($this->vendor_data);
 
         if($this->vendor_data['prime'] != 'Yes')
         {
@@ -217,11 +220,13 @@ class Item
             '" .  $this->ebay_data->ListingDetails->ViewItemURL . "', 
              '" . $this->vendor_data['offerprice'] . "',  
              '" . $this->vendor_data['quantity'] . "',
-             '" . $this->get_profit_ratio() . "',
+             '" . $this->get_profit_ratio()*100 . "',
              '" . $this->vendor_data['url'] . "',
              ''
         )";
        $this->query($sql);
+
+       $this->load_local_data();
     }
 
     private function query($sql)
@@ -234,14 +239,14 @@ class Item
 
     public function drop()
     {
-        $this->log("" . $this->item_id  . " dropped.");
+        $this->log("Item dropped.");
 
         //$this->log_response_errors(Ebay::drop_item($this->item_id));
     }
 
     public function relist()
     {
-        $this->log("" . $this->item_id  . " relisted.");
+        $this->log(" Item relisted.");
 
         //$this->log_response_errors(Ebay::relist_item($this->item_id));
     }

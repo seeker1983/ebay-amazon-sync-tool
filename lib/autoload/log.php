@@ -25,7 +25,7 @@ class Log
 
 	public static function tail($lines = 0)
 	{
-		return self::tail_custom(self::get_default_log_file(), $lines);
+		return self::tail_custom('log.txt', $lines);
 	}
 
 	public static function tail_custom($file, $lines = 0)
@@ -44,7 +44,7 @@ class Log
 
 	public static function push($msg)
 	{
-		self::custom(self::get_default_log_file(), $msg);
+		self::custom('log.txt', $msg);
 	}
 
 	public static function custom($file, $msg)

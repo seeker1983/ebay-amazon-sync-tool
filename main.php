@@ -59,9 +59,7 @@ require_once('blocks/head.php');
           <tbody ebay-type-container='Log' style='display:none'>
               <tr>
                 <td colspan="10">
-                <pre>
-                <? echo htmlspecialchars(implode("\r\n", Log::tail(500)) ); ?>
-                </pre>
+                <? echo implode("<br>", Log::tail(500)); ?>
 
                 </td>
             </tr>

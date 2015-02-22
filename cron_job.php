@@ -39,7 +39,7 @@ foreach($users as $user)
 
     foreach ($items as $num =>$ebay_item) 
     {
-        if($ebay_item->ItemID != '110155539176')
+//        if($ebay_item->ItemID != '110155539176')
             continue;
 
         $item = Item::from_ebay_data($ebay_item);
@@ -48,7 +48,7 @@ foreach($users as $user)
         if($item->vendor_data['offerprice'] && $item->vendor_data['quantity'] && $item->vendor_data['prime'] == 'Yes')
             $item->relist();
 
-        if(file_exists(STOP_FILE))
+        if(file_exists('stop'))
             xd('Interrupted');
     }
 
@@ -58,7 +58,10 @@ foreach($users as $user)
 
     foreach ($items as $num =>$ebay_item) 
     {
-        if(!empty($_GET['num']) && $_GET['num'] == $num)
+        if(!empty($_GET['num']) && $_GET['num'] != $num)
+            continue;     
+
+        if(!empty($_GET['id']) && $_GET['id'] != $ebay_item->ItemID)
             continue;
 
         $item = Item::from_ebay_data($ebay_item);
@@ -66,7 +69,7 @@ foreach($users as $user)
 
         $item->update();
 
-        if(file_exists(STOP_FILE))
+        if(file_exists('stop'))
             xd('Interrupted');
     }
 }
