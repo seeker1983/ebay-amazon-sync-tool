@@ -52,8 +52,6 @@ foreach($users as $user)
             xd('Interrupted');
     }
 
-    xp('Relist done');
-
     /* Updating active items */
 
     $items = Ebay_deprecated::get_items();

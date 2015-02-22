@@ -20,6 +20,9 @@
         <?php
             }
         ?>
+            <li ebay-type="Log"><a href="#">Log</a></li>
+            <li><a href="main.php?refresh">Refresh</a></li>
+
 <!--          <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -34,7 +37,6 @@
         </li>
  -->       </ul>
        <ul class="nav navbar-nav navbar-right">
-        <li><a href="log.txt">View log</a></li>
         <? if ($GLOBALS['user']['group'] == 'admin') { ?>
         <li><a href="dashboard.php">Dashboard</a></li>
         <? } ?>

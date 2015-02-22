@@ -8,7 +8,11 @@ class Log
 
 	public static function get_default_log_file()
 	{
-		return 'log.txt';
+		$user_id = isset($GLOBALS['user']['user_id']) ? $GLOBALS['user']['user_id'] : "system";
+
+		$file = 'log/' . $user_id . '/' . 'log.txt';
+
+		return $file;
 	}
 
 	public static function clear($file = null)
@@ -17,6 +21,25 @@ class Log
 			$file = self::get_default_log_file();
 		
 		@unlink($file);
+	}
+
+	public static function tail($lines = 0)
+	{
+		return self::tail_custom(self::get_default_log_file(), $lines);
+	}
+
+	public static function tail_custom($file, $lines = 0)
+	{
+		$user_id = isset($GLOBALS['user']['user_id']) ? $GLOBALS['user']['user_id'] : "system";
+
+		$file = 'log/' . $user_id . '/' . $file;
+
+		$data = file($file);
+		
+		if($lines)
+			$data = array_slice($data, -$lines);
+
+		return $data;
 	}
 
 	public static function push($msg)

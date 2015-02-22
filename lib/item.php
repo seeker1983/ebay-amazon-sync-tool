@@ -10,16 +10,24 @@ class Item
 	public $vendor_data = null;
 	public $ebay_data = null;
 
-	public function __construct($item_id = null)
-	{
-		if($item_id)
-		{
-			$this->item_id = (string)$item_id;
-			$this->local_data = DB::query_row("SELECT * from `user_products` where ItemID='$item_id'");
-			if(!empty($this->local_data['SKU']))
-				$this->sku = $this->local_data['SKU'];
-		}
-	}
+    public function __construct($item_id = null)
+    {
+        if($item_id)
+        {
+            $this->item_id = (string)$item_id;
+            $this->local_data = DB::query_row("SELECT * from `user_products` where ItemID='$item_id'");
+            if(!empty($this->local_data['SKU']))
+                $this->sku = $this->local_data['SKU'];
+        }
+    }
+
+    public function load_local_data()
+    {
+       if($this->item_id)
+            $this->local_data = DB::query_row("SELECT * from `user_products` where ItemID='$this->item_id'");
+
+       return $this->local_data;
+    }
 
     public static function from_ebay_data($ebay_data)
     {
@@ -72,9 +80,18 @@ class Item
 			require_once("lib\scrape.php");
 
 			if(is_null($sku))
-				$sku = $this->local_data['SKU'];
+				$sku = $this->sku;
 
 			$this->vendor_data = scrap_item($sku);
+
+            if($this->item_id)
+            {
+                if(! $this->load_local_data() )
+                {
+                    $this->load_ebay_data();
+                    $this->create_local();
+                }
+            }
 
             if(LOCAL_SERVER)
             {
@@ -100,7 +117,7 @@ class Item
 		if($this->local_data)
 			return $this->local_data['ProfitRatio'] / 100;
 		
-        if($this->vendor_data && preg_match('%^WF%', $this->vendor_data['SKU']))
+        if($this->vendor_data && preg_match('%^WF%', $this->sku))
 			return 0;
 
 		return 0.15;
@@ -190,16 +207,19 @@ class Item
             `sort`
             )
             VALUES (
-            '$user_id',  '$this->ebay_data->ItemID',  '$this->ebay_data->QuantityAvailable',  '$this->ebay_data->BuyItNowPrice',
+            '${_SESSION['user_id']}',  
+            '" .  $this->ebay_data->ItemID . "',
+            '" .  $this->ebay_data->QuantityAvailable . "', 
+            '" .  $this->ebay_data->SellingStatus->CurrentPrice->value . "',
             '" . mysql_real_escape_string($this->ebay_data->Title) . "',  
             '" . mysql_real_escape_string($this->ebay_data->SKU) . "',  
-            '$this->ebay_data->PictureDetails->GalleryURL',
-            '$this->ebay_data->ListingDetails->ViewItemURL', 
-             '${this}->{vendor_data['offerprice']}',  
-             '${this}->{vendor_data['quantity']}',
+            '" .  $this->ebay_data->PictureDetails->GalleryURL . "',
+            '" .  $this->ebay_data->ListingDetails->ViewItemURL . "', 
+             '" . $this->vendor_data['offerprice'] . "',  
+             '" . $this->vendor_data['quantity'] . "',
              '" . $this->get_profit_ratio() . "',
-             '${this}->{vendor_data['url']}',
-             '$num'
+             '" . $this->vendor_data['url'] . "',
+             ''
         )";
        $this->query($sql);
     }
@@ -216,14 +236,14 @@ class Item
     {
         $this->log("" . $this->item_id  . " dropped.");
 
-        $this->log_response_errors(Ebay::drop_item($this->item_id));
+        //$this->log_response_errors(Ebay::drop_item($this->item_id));
     }
 
     public function relist()
     {
-        $this->log("" . $this->item_id  . " reliset.");
+        $this->log("" . $this->item_id  . " relisted.");
 
-        $this->log_response_errors(Ebay::relist_item($this->item_id));
+        //$this->log_response_errors(Ebay::relist_item($this->item_id));
     }
 
     public function revise($options)
@@ -250,6 +270,11 @@ class Item
         }
 
         $this->local_data = DB::query_row("SELECT * from `user_products` where ItemID='$this->item_id'");
+    }
+
+    public function tail($lines = 0)
+    {
+        return Log::tail_custom("item_$this->item_id.txt", $lines);
     }
 
 }

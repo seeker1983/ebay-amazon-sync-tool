@@ -17,7 +17,7 @@ require_once('blocks/head.php');
             $db_items[$item['ItemID']] = $item;
 
         $itemTypes = array( "ActiveList", "UnsoldList", "BidList", "DeletedFromSoldList", "DeletedFromUnsoldList", "ScheduledList", "SoldList");
-        $itemTypes = array( "ActiveList", "UnsoldList", "DeletedFromUnsoldList");
+        $itemTypes = array( "ActiveList", "UnsoldList");
 
         foreach($itemTypes as $type)
             $items[$type] = Ebay_deprecated::get_items($type);
@@ -56,6 +56,16 @@ require_once('blocks/head.php');
                 <?php
                 }
                 ?>
+          <tbody ebay-type-container='Log' style='display:none'>
+              <tr>
+                <td colspan="10">
+                <pre>
+                <? echo htmlspecialchars(implode("\r\n", Log::tail(500)) ); ?>
+                </pre>
+
+                </td>
+            </tr>
+          </tbody>
        </table>
        <?
        return ob_get_clean();

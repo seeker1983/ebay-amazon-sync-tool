@@ -86,6 +86,14 @@ if(isset($_GET['id']))
                 </div>
                
                 <div class="control-group">
+                  <label class="control-label" for="searchField">Current ebay price</label>
+                  <div class="controls">
+                    <input id="nbprodamaz" name="ebay_quantity" placeholder="Current number of products" class="input-large" type="text"
+                        value="<?php echo htmlentities( @$item->ebay_data->SellingStatus->CurrentPrice->value); ?>">
+                  </div>
+                </div>
+               
+                <div class="control-group">
                   <label class="control-label" for="searchField">Current vendor quantity</label>
                   <div class="controls">
                     <input id="nbprodamaz" name="vendor_quantity" placeholder="Current number of products" class="input-large" type="text"
@@ -121,6 +129,13 @@ if(isset($_GET['id']))
       </div>
    </fieldset>
    </form>
+
+<div>
+<pre>
+<? echo htmlspecialchars(implode("", $item->tail(100)) ); ?> 
+</pre>
+</div>
+
     <div class="spacer"></div>
        
 
