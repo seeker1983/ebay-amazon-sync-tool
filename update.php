@@ -9,7 +9,7 @@ require_once('lib/item.php');
 
 if(!empty($_GET['action']) && !empty($_GET['id']))
 {
-  $item = new Item(intval($_GET['id']))
+  $item = new Item($_GET['id']);
     switch ($_GET['action']) {
       case 'drop':
           $response = $item->drop();
@@ -24,9 +24,9 @@ if(!empty($_GET['action']) && !empty($_GET['id']))
     }
 }
 
-Ebay\show_response_errors($response);
+show_response_errors($response);
 
-if ($response->Ack !== 'Failure') {
+if ($response->Ack != 'Failure') {
     $href = "/main.php?refresh";
     ?>
     <p>

@@ -1,7 +1,10 @@
 <tr id='<?php echo $item->ItemID; ?>'>
-    <td> <a href="<?php echo $item->ListingDetails->ViewItemURL; ?>" target=_blank> <?php echo $item->ItemID; ?> </a></td>
+    <td> <a href="<?php echo $item->ListingDetails->ViewItemURL; ?>" target=_blank> <?php echo $item->ItemID; ?> <br/> (Upd. <?php echo ($db_item? $db_item['ts']: ''); ?> h ago.) </a></td>
     <td> <a href="<?php echo get_url_from_sku($item->SKU); ?>" target=_blank> <?php echo $item->SKU; ?>  </a></td>
-    <td> <?php echo $item->Title; ?> </td>
+    <td> <font color="<? echo empty($db_item['VendorQty'])? 'red' : 'black'?>" >
+            <?php echo $item->Title; ?> 
+         </font>
+    </td>
     <td> <img src='<?php echo $item->PictureDetails->GalleryURL; ?>' /> </td>
     <td> <?php echo $item->BuyItNowPrice; ?> </td>
     <td> <?php echo (empty($db_item['VendorPrice'])?'':calculate_rec_price($db_item['VendorPrice'])); ?> </td>

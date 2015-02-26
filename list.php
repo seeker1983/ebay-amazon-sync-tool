@@ -15,7 +15,7 @@ else if(isset($_GET['url']))
 {
   $url = $_GET['url'];
 
-  $item = scrap_item_url($url);
+  //$item = scrap_item_url($url);
 
   //xp(Watermark::add_watermark($item['img']));
 //  xp($item);
@@ -77,8 +77,8 @@ else if(isset($_GET['url']))
                 <div class="control-group">
                   <label class="control-label" for="searchField">Title</label>
                   <div class="controls">
-                    <input id="title" name="title" placeholder="Title" class="input-large" type="text"
-                    value="<?php echo isset($item['title'])?htmlentities($item['title']):''; ?>">
+                    <input id="title" name="title" placeholder="Title" class="input-large" type="text" maxlength="79"
+                    value="<?php echo isset($item['title'])?($item['title']):''; ?>">
                   </div>
                 </div>
                 <div class="control-group">
@@ -88,6 +88,10 @@ else if(isset($_GET['url']))
                     value="<?php echo isset($item['sku'])?htmlentities($item['sku']):''; ?>">
                   </div>
                 </div>
+                <? 
+                   require('blocks/categories_block.php'); 
+                ?>
+
                 <div class="control-group">
                   <label class="control-label" for="searchField">Description</label>
                   <div class="controls">
@@ -110,6 +114,7 @@ else if(isset($_GET['url']))
 
                 <? 
                    $vendor_price = @floatval($item['offerprice']);
+                   $profit_pc = 0.15;
                    require('blocks/price_block.php'); 
                 ?>
 
@@ -129,6 +134,27 @@ else if(isset($_GET['url']))
                     </div>
                   </div>
                 <? } ?>
+                  <div class="control-group">
+                    <label class="control-label" for="searchField">Listing duration</label>
+                    <select name="duration">
+                      <!-- <option value="Days_1"> Days 1  </option> -->
+                      <option value="Days_3"> Days 3  </option>
+                      <option value="Days_7"> Days 7  </option>
+                      <option value="Days_10"> Days 10  </option>
+                      <!-- <option value="Days_120"> Days 120  </option> -->
+                      <option value="Days_14"> Days 14  </option>
+                      <!-- <option value="Days_21"> Days 21  </option> -->
+                      <option value="Days_30"> Days 30  </option>
+                      <!-- <option value="Days_5"> Days 5  </option> -->
+                      <!-- <option value="Days_60"> Days 60  </option> -->
+                      <!-- <option value="Days_90"> Days 90  </option> -->
+                      <option value="GTC"> Until cancelled </option>
+                    </select>
+
+
+                  </div>
+
+
             
                
                 <div class="control-group">

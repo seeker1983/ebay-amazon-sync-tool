@@ -8,7 +8,7 @@ class Item
 	public $item_id = null;
 	public $sku = null;
 	public $vendor_data = null;
-	public $ebay_data = null;
+    public $ebay_data = null;
 
     public function __construct($item_id = null)
     {
@@ -100,6 +100,9 @@ class Item
             }
 
 		}
+
+        if($this->vendor_data['prime'] != 'Yes')
+            $this->vendor_data['quantity'] = 0;
 		return $this->vendor_data;
 	}
 
@@ -133,8 +136,6 @@ class Item
 	public function update()
 	{
 		$this->scrape();
-
-        xp($this->vendor_data);
 
         if($this->vendor_data['prime'] != 'Yes')
         {
@@ -241,14 +242,30 @@ class Item
     {
         $this->log("Item dropped.");
 
-        //$this->log_response_errors(Ebay::drop_item($this->item_id));
+        $response = Ebay::drop_item($this->item_id);
+
+        if($response->Ack !="Success")
+        {
+            $this->log_response_errors($response);
+        }
+
+        return $response;
     }
 
     public function relist()
     {
-        $this->log(" Item relisted.");
+        $this->log(" Item is back in stock.");
 
-        //$this->log_response_errors(Ebay::relist_item($this->item_id));
+        return false;        
+
+/*        $response = Ebay::relist_item($this->item_id);
+
+        if($response->Ack !="Success")
+        {
+            $this->log_response_errors($response);
+        }
+
+        return $response; */
     }
 
     public function revise($options)
@@ -280,6 +297,16 @@ class Item
     public function tail($lines = 0)
     {
         return Log::tail_custom("item_$this->item_id.txt", $lines);
+    }
+
+    public function setSort($sort)
+    {
+        $this->query("UPDATE `user_products` SET `sort`='$sort' WHERE `user_products`.`ItemID` ='$this->item_id'");
+    }
+
+    public function get_ebay_data_by_sku($sku)
+    {
+        return Ebay::get_item_by_sku($sku);
     }
 
 }

@@ -10,6 +10,13 @@ function scrape(url)
 		location.href = target_url
 //		console.log(target_url);
 	}
+	console.log(location.href)
+	console.log(location.href.indexOf('http://overstock.com'))
+	if(location.href.indexOf('http://www.overstock.com') == 0) /* Overstock */
+	{	
+		var target_url = url + "/list.php?url=" + encodeURIComponent(location.href) + "&desc=" + encodeURIComponent(desc)
+		location.href = target_url
+	}
 }
 
 /* Bookmarklet 

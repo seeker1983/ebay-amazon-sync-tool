@@ -20,14 +20,13 @@ foreach ($_POST['picture_name'] as $i => $name) {
 }
 
 //$item['gallery'] = array('http://i.ebayimg.sandbox.ebay.com/00/s/MzAwWDI2Mg==/z/MbcAAOSwX-hUzs2F/$_1.JPG?set_id=8800004005');
-$item['category_id'] = 1280;
 $item['verify'] = false;
 //$item['test'] = true;
 
 
-$response = ebay_add_item($item);
+$response = Ebay::add_item($item);
 
-Ebay\show_response_errors($response);
+show_response_errors($response);
 
 if ($response->Ack !== 'Failure') {
     $href = $user['sandbox']? 'http://cgi.sandbox.ebay.com/ws/eBayISAPI.dll?ViewItem&item=' . $response->ItemID :

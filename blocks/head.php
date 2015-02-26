@@ -89,6 +89,7 @@ if (!isset($_SESSION['user_id']) && parse_url($_SERVER['REQUEST_URI'], PHP_URL_P
 				}
 		</style>
         <script src="js/jquery-2.1.3.min.js"></script>
+        <script src="js/jquery-plugins.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/main.js"></script>
         

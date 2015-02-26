@@ -26,7 +26,8 @@ class Ebay
 		/**
 		 * Let the listing be automatically renewed every 30 days until cancelled.
 		 */
-		$item->ListingDuration = Enums\ListingDurationCodeType::C_GTC;
+//		$item->ListingDuration = Enums\ListingDurationCodeType::C_GTC;
+		$item->ListingDuration = $item_data['duration'];
 
 		/**
 		 * The cost of the item is $19.99.
@@ -40,13 +41,13 @@ class Ebay
 		 * Allow buyers to submit a best offer.
 		 */
 		$item->BestOfferDetails = new Types\BestOfferDetailsType();
-		$item->BestOfferDetails->BestOfferEnabled = true;
+		$item->BestOfferDetails->BestOfferEnabled = false;
 
 		/**
 		 * Automatically accept best offers of $17.99 and decline offers lower than $15.99.
 		 */
 		$item->ListingDetails = new Types\ListingDetailsType();
-		$item->ListingDetails->BestOfferAutoAcceptPrice = new Types\AmountType(array('value' => floatval($item_data['price']) * 0.95));
+//		$item->ListingDetails->BestOfferAutoAcceptPrice = new Types\AmountType(array('value' => floatval($item_data['price']) * 0.95));
 		$item->ListingDetails->MinimumBestOfferPrice = new Types\AmountType(array('value' => floatval($item_data['price']) * 0.90));
 
 		/**
@@ -54,7 +55,7 @@ class Ebay
 		 * Note that any HTML in the title or description must be converted to HTML entities.
 		 */
 
-		$item->Title = $item_data['title'];
+		$item->Title = htmlentities(substr($item_data['title'], 0, 79));
 		$item->Description = htmlentities($item_data['desc']);
 		$item->SKU = (string)$item_data['sku'];
 		$item->Country = 'US';
@@ -70,7 +71,7 @@ class Ebay
 		 */
 		$item->PictureDetails = new Types\PictureDetailsType();
 		$item->PictureDetails->GalleryType = Enums\GalleryTypeCodeType::C_GALLERY;
-		$item->PictureDetails->PictureURL = $item_data['gallery'];
+		$item->PictureDetails->PictureURL = array_slice($item_data['gallery'], 0, 10);
 
 		/**
 		 * List item in the Books > Audiobooks (29792) category.
@@ -235,6 +236,50 @@ class Ebay
 
 	 	return $response;	
 	}
+
+	public static function get_item_by_sku($sku)
+	{
+		global $service, $token, $user;
+
+		$request = new Types\GetItemRequestType();
+
+		$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+		$request->RequesterCredentials->eBayAuthToken = $token;
+
+		$request->SKU = $sku;
+
+		$response = $service->GetItem($request);
+
+	 	return $response;	
+	}
+
+	public static function get_categories($options = array())
+	{
+		global $service, $token, $user;
+
+		$request = new Types\GetCategoriesRequestType();
+
+		$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+		$request->RequesterCredentials->eBayAuthToken = $token;
+
+		$request->DetailLevel = array('ReturnAll');
+
+		$request->OutputSelector = array(
+		    'CategoryArray.Category.CategoryID',
+		    'CategoryArray.Category.CategoryParentID',
+		    'CategoryArray.Category.CategoryLevel',
+		    'CategoryArray.Category.CategoryName'
+		);
+
+		if(isset($options['LevelLimit'])) $request->LevelLimit = $options['LevelLimit'];
+		if(isset($options['CategoryParent'])) $request->CategoryParent = $options['CategoryParent'];
+
+		$response = $service->getCategories($request);		
+
+	 	return $response;	
+	}
+
+
 
 }
 

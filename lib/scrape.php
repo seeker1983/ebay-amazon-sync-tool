@@ -44,10 +44,12 @@ function scrap_item($sku)
 }
 function scrap_item_url($url)
 {
-    if(preg_match('%http://www.amazon.com.*/dp/(.*?)(/.*)?$%', $url, $matches))
+    if(preg_match('%^http://www.amazon.com.*/dp/(.*?)(/.*)?$%', $url, $matches))
         return scrap_amazon_all($matches[1]);
-    if(preg_match('%http://www.amazon.com.*/gp/product/(.*?)(/.*)?$%', $url, $matches))
+    if(preg_match('%^http://www.amazon.com.*/gp/product/(.*?)(/.*)?$%', $url, $matches))
         return scrap_amazon_all($matches[1]);
+    if(preg_match('%^http://www.overstock.com.*/(\d+)/product.html%', $url, $matches))
+        return scrap_overstock_all($url, $matches[1]);
 
     die("Unknown url $url");
 }

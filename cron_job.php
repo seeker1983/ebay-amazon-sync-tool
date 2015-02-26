@@ -2,7 +2,7 @@
 set_time_limit(0);
 $start_time = time("now");
 require_once('lib/config.php');
-require_once('lib/ebay.php');
+require_once('lib/ebay/selling.php');
 require_once('lib/item.php');
 
 if(isset($_GET['user_id']))
@@ -33,20 +33,33 @@ foreach($users as $user)
 
     $paypal_email = trim($user['paypal_address']);
 
+    $token = decrypt($user['token']);
+
     /* Relisting inactive items */
 
-    $items = Ebay_deprecated::get_items('UnsoldList');
+    $items = EbaySelling::get_items('UnsoldList');
 
     foreach ($items as $num =>$ebay_item) 
     {
-//        if($ebay_item->ItemID != '110155539176')
+        if(!empty($_GET['num']) && $_GET['num'] != $num)
+            continue;     
+
+        if(!empty($_GET['id']) && $_GET['id'] != $ebay_item->ItemID)
             continue;
 
         $item = Item::from_ebay_data($ebay_item);
         $item->scrape($ebay_item->SKU);
 
         if($item->vendor_data['offerprice'] && $item->vendor_data['quantity'] && $item->vendor_data['prime'] == 'Yes')
-            $item->relist();
+        {
+            $current = Ebay::get_item_by_sku($ebay_item->SKU);
+
+            if(@ $error = $current->Errors->offsetGet(0))
+                if($error->ErrorCode == '21916270') /* There is no active item matching the specified SKU */
+                {
+                    $response = $item->relist();
+                }
+        }
 
         if(file_exists('stop'))
             xd('Interrupted');
@@ -54,7 +67,7 @@ foreach($users as $user)
 
     /* Updating active items */
 
-    $items = Ebay_deprecated::get_items();
+    $items = EbaySelling::get_items('ActiveList');
 
     foreach ($items as $num =>$ebay_item) 
     {
@@ -68,6 +81,9 @@ foreach($users as $user)
         $item->scrape($ebay_item->SKU);
 
         $item->update();
+
+        $item->setSort($num);
+
 
         if(file_exists('stop'))
             xd('Interrupted');

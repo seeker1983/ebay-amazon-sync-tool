@@ -13,8 +13,9 @@ require_once('blocks/head.php');
 
         global $active_user;
 
-        foreach(DB::query_rows("SELECT * FROM `user_products` WHERE  `UserID`='$active_user' ORDER BY `sort`") as $item)
+        foreach(DB::query_rows("SELECT user_products.*, TIMESTAMPDIFF(HOUR , lastUpdate, NOW()) as ts  FROM `user_products` WHERE  `UserID`='$active_user' ORDER BY `sort`") as $item)
             $db_items[$item['ItemID']] = $item;
+
 
         $itemTypes = array( "ActiveList", "UnsoldList", "BidList", "DeletedFromSoldList", "DeletedFromUnsoldList", "ScheduledList", "SoldList");
         $itemTypes = array( "ActiveList", "UnsoldList");
@@ -24,7 +25,8 @@ require_once('blocks/head.php');
 
         require('blocks/listing_type_navbar.php');
         ?>
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="items_table" class="tablesorter">
+            <thead>
             <tr>
                 <th style="width:80px;">eBbay ID</th>
                 <th style="width:80px;">SKU</th>
@@ -38,6 +40,7 @@ require_once('blocks/head.php');
                 <th style="width:50px;">Vendor quantity</th>
                 <th style="width:80px;">Manage</th>
             </tr>
+            </thead>
         <?php
 
             foreach($items as $type => $type_items)
@@ -71,7 +74,43 @@ require_once('blocks/head.php');
 ?>
 </body>
 
+<script>
 
+$(function(){
+    $('#items_table thead tr th').click(function() {
+        sort_table(this)
+    })
+
+    if(localStorage['sort_column'] >=0)
+    {
+        sort_table($('#items_table thead tr th')[localStorage['sort_column']])
+    }
+
+})
+
+function sort_table(th)
+{    
+    var col = $(th).parent().children().index($(th));
+
+    localStorage['sort_column'] = col
+
+    var tbl = document.getElementById("items_table").tBodies[0];
+    var store = [];
+    for(var i=0, len=tbl.rows.length; i<len; i++){
+        var row = tbl.rows[i];
+        var sortnr = parseFloat(row.cells[col].textContent || row.cells[col].innerText);
+        if(!isNaN(sortnr)) store.push([sortnr, row]);
+    }
+
+    store.sort(function(x,y){
+        return x[0] - y[0];
+    });
+    for(var i=0, len=store.length; i<len; i++){
+        tbl.appendChild(store[i][1]);
+    }
+}
+
+</script>
 
 
 

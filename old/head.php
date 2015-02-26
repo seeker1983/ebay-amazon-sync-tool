@@ -76,7 +76,7 @@
 					min-height:30px !important;
 				}
 		</style>
-		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+        <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/js/bootstrap.min.js"></script>
 		<script type="text/javascript" charset="utf-8" src="assets/media/js/jquery.dataTables.js"></script>
         <script src="assets/media/js/DT_bootstrap.js"></script>

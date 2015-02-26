@@ -59,11 +59,10 @@ if(isset($_SESSION['user_id']))
 		$eBayAPIURL = "https://api.ebay.com/ws/api.dll";	
 	}
 
-	$COMPATIBILITYLEVEL = '505';
-	$SiteId = 0;
-
 }
 
+$COMPATIBILITYLEVEL = '800';
+$SiteId = 0;
 
 
 

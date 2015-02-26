@@ -279,6 +279,7 @@ class EbayApi
 								"X-EBAY-API-SITEID: $SiteId",
 								"X-EBAY-API-CALL-NAME: ".$call_name); 
 
+
 	   	$ch = curl_init(); 
 		$res= curl_setopt ($ch, CURLOPT_URL, $eBayAPIURL); 
 
@@ -293,7 +294,9 @@ class EbayApi
 		curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1); 
 
 	    if( ($body = curl_exec($ch)) === false)
-	    	die("Api request error: " . curl_errno($ch));
+	    {
+	    	die("Api request error: " . curl_error($ch));
+	    }
 
 		
 		curl_close ($ch); // Close the connection

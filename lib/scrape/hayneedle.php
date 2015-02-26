@@ -1,12 +1,20 @@
 <?php
 function scrap_hayneedle($url)
 {
+    return array(
+        'offerprice' => 0,
+        'quantity' => 0,
+        'prime' => 'No',
+        'scrapok' => true
+    );
+
     
     if (!filter_var($url, FILTER_VALIDATE_URL)) {
         $url = "http://search.hayneedle.com/search/index.cfm?Ntt=" . $url;
     }
     
     $data              = getPage($url);
+
     $html              = str_get_html($data);
     $result['scrapok'] = 0;
     if ($html) {
