@@ -15,7 +15,7 @@ else if(isset($_GET['url']))
 {
   $url = $_GET['url'];
 
-  //$item = scrap_item_url($url);
+  $item = scrap_item_url($url);
 
   //xp(Watermark::add_watermark($item['img']));
 //  xp($item);
@@ -119,20 +119,23 @@ else if(isset($_GET['url']))
                 ?>
 
                 <? foreach(array_values($item['img']) as $i => $img) { ?>
-                  <div class="control-group">
-                    <label class="control-label" for="searchField">Pictures</label>
-                    <div class="controls">
-                      <img src="<?php echo Watermark::add_watermark($img); ?>">
-                      <input id="img_<? echo $i; ?>" name="img[]" type="hidden" value="<?php echo htmlentities(Watermark::add_watermark($img)); ?>">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <label class="control-label" for="searchField">Picture name</label>
-                    <div class="controls">
-                      <input id="picture_name" name="picture_name[]" placeholder="" class="input-medium" type="text" 
-                        value="<?php echo (isset($item['title'])?htmlentities($item['title']):'Picture') . ' ' . ($i + 1); ?>">
-                    </div>
-                  </div>
+                  <div>
+	                  <div class="control-group">
+	                    <label class="control-label" for="searchField">Pictures</label>
+	                    <div class="controls">
+	                      <img src="<?php echo Watermark::add_watermark($img); ?>">
+	                      <input id="img_<? echo $i; ?>" name="img[]" type="hidden" value="<?php echo htmlentities(Watermark::add_watermark($img)); ?>">
+	                      <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"> Delete</a>
+	                    </div>
+	                  </div>
+	                  <div class="control-group">
+	                    <label class="control-label" for="searchField">Picture name</label>
+	                    <div class="controls">
+	                      <input id="picture_name" name="picture_name[]" placeholder="" class="input-medium" type="text" 
+	                        value="<?php echo (isset($item['title'])?htmlentities($item['title']):'Picture') . ' ' . ($i + 1); ?>">
+	                    </div>
+	                  </div>
+	              </div>
                 <? } ?>
                   <div class="control-group">
                     <label class="control-label" for="searchField">Listing duration</label>
@@ -165,6 +168,9 @@ else if(isset($_GET['url']))
         </fieldset>
    </form>
     <div class="spacer"></div>
+
+    <script>
+    </script>
 
     
 </body>

@@ -18,26 +18,42 @@ else
 
 if(!Lock::lock($lock_file, "LOCK", 0*3600))
 {
-    die('Another instance is already running: ' . Lock::get_msg($lock_file));
+    //die('Another instance is already running: ' . Lock::get_msg($lock_file));
 }
 
 Log::push('----- Cron job started -----');
 
-foreach($users as $user) 
+foreach($users as $user_data) 
 {
-    $user_id = $user['user_id'];
+    $user_id = $user_data['user_id'];
+    $_user = new User($user_id);
 
-    $DEVNAME = trim($user['dev_name']);
-    $APPNAME = trim($user['app_name']);
-    $CERTNAME = trim($user['cert_name']);
+    $DEVNAME = trim($user_data['dev_name']);
+    $APPNAME = trim($user_data['app_name']);
+    $CERTNAME = trim($user_data['cert_name']);
 
-    $paypal_email = trim($user['paypal_address']);
+    $paypal_email = trim($user_data['paypal_address']);
 
-    $token = decrypt($user['token']);
+    $token = decrypt($user_data['token']);
+
+    $service = new \DTS\eBaySDK\Trading\Services\TradingService(array(
+        'apiVersion' => $config['tradingApiVersion'],
+        'sandbox' => $user_data['sandbox'] == 1,
+        'siteId' => \DTS\eBaySDK\Constants\SiteIds::US,
+        'devId' => $user_data['dev_name'],
+        'appId' => $user_data['app_name'],
+        'certId' => $user_data['cert_name'],
+        'debug' => DEBUG,
+
+    ));
 
     /* Relisting inactive items */
 
-    $items = EbaySelling::get_items('UnsoldList');
+
+
+//    $items = EbaySelling::get_items('UnsoldList');
+
+    $items = array();
 
     foreach ($items as $num =>$ebay_item) 
     {
@@ -49,20 +65,26 @@ foreach($users as $user)
 
         $item = Item::from_ebay_data($ebay_item);
         $item->scrape($ebay_item->SKU);
+        sleep(2);
 
-        if($item->vendor_data['offerprice'] && $item->vendor_data['quantity'] && $item->vendor_data['prime'] == 'Yes')
+        if(!empty($item->vendor_data['scrapok']) && !empty($item->vendor_data['offerprice']) && $item->vendor_data['quantity'] && $item->vendor_data['prime'] == 'Yes')
         {
             $current = Ebay::get_item_by_sku($ebay_item->SKU);
 
             if(@ $error = $current->Errors->offsetGet(0))
                 if($error->ErrorCode == '21916270') /* There is no active item matching the specified SKU */
                 {
-                    $response = $item->relist();
+                    $item->log('Should is back in stock.');
+                    $_user->notify("Item is back in stock", $item->get_links() . ' can be relisted');
+                    //$response = $item->relist();
+
                 }
         }
 
         if(file_exists('stop'))
             xd('Interrupted');
+
+        gc_collect_cycles();
     }
 
     /* Updating active items */
@@ -79,6 +101,7 @@ foreach($users as $user)
 
         $item = Item::from_ebay_data($ebay_item);
         $item->scrape($ebay_item->SKU);
+        sleep(2);
 
         $item->update();
 
@@ -87,6 +110,8 @@ foreach($users as $user)
 
         if(file_exists('stop'))
             xd('Interrupted');
+
+        gc_collect_cycles();
     }
 }
 Log::push('----- Cron job finished -----');

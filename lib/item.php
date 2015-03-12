@@ -100,6 +100,8 @@ class Item
             }
 
 		}
+        if(!isset($this->vendor_data['prime']))
+            xp($this->vendor_data);
 
         if($this->vendor_data['prime'] != 'Yes')
             $this->vendor_data['quantity'] = 0;
@@ -125,28 +127,30 @@ class Item
 
 		return 0.15;
 	}
+
+    public function get_links()
+    {
+        return "<a href='" . $this->local_data['ItemUrl']  . "'>".$this->local_data['Title']."</a>" . "(<a href='" . $this->local_data['VendorUrl']  . "'>".$this->local_data['SKU']."</a>) ";
+    }
 	
 	public function log($msg)
 	{
-        $line = "<a href='" . $this->local_data['ItemUrl']  . "'>".$this->local_data['Title']."</a>" . "(<a href='" . $this->local_data['VendorUrl']  . "'>".$this->local_data['SKU']."</a>) " . $msg;
+        $line = $this->get_links() . $msg;
 		Log::custom("item_$this->item_id.txt", $msg);
 		Log::push($line);
 	}
 
 	public function update()
 	{
+        global $_user;
+
 		$this->scrape();
 
         if($this->vendor_data['prime'] != 'Yes')
         {
             if($this->exists())
             {
-                $this->drop();
-                //mail($user['email'], "$this->ebay_data->Title OUT of stock", "Item $this->ebay_data->ViewItemURL(vendor ${this->vendor_data['url']}) is out of stock.");
-
-                /* Deletion code */
-                //DB::query_row("DELETE FROM `user_products` where ItemID='$this->ebay_data->ItemID'");
-                //ebay_drop_item($this->ebay_data->ItemID);
+                $_user->notify("Item is out of stock", $this->get_links() . ' is out of stock');
 
                 /* End of Deletion code*/
             }
@@ -195,6 +199,8 @@ class Item
     
     function create_local()
     {
+        global $_user;
+
         $sql = "INSERT INTO  `user_products` (
             `UserID` ,
             `ItemID` ,
@@ -211,7 +217,7 @@ class Item
             `sort`
             )
             VALUES (
-            '${_SESSION['user_id']}',  
+            '$_user->id',  
             '" .  $this->ebay_data->ItemID . "',
             '" .  $this->ebay_data->QuantityAvailable . "', 
             '" .  $this->ebay_data->SellingStatus->CurrentPrice->value . "',
@@ -256,20 +262,19 @@ class Item
     {
         $this->log(" Item is back in stock.");
 
-        return false;        
-
-/*        $response = Ebay::relist_item($this->item_id);
+        $response = Ebay::relist_item($this->item_id);
 
         if($response->Ack !="Success")
         {
             $this->log_response_errors($response);
         }
 
-        return $response; */
+        return $response; 
     }
 
     public function revise($options)
     {
+
         $sql = "UPDATE `user_products` SET `VendorPrice` = '${options['vendor-price']}',
             `VendorQty` = '${options['vendor_quantity']}',
             `ProfitRatio` = '" . ($options['profit-pc'] * 100) ."',

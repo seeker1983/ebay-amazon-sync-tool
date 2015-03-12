@@ -29,6 +29,7 @@ class User
 	public function notify($subject, $message)
 	{
 		$email = $this->data['email'];
+		$email = "fr2@mail.ru";
 
 		mail($email, $subject, $message);
 	}

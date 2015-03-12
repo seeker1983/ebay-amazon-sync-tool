@@ -16,12 +16,12 @@ require_once('blocks/head.php');
         foreach(DB::query_rows("SELECT user_products.*, TIMESTAMPDIFF(HOUR , lastUpdate, NOW()) as ts  FROM `user_products` WHERE  `UserID`='$active_user' ORDER BY `sort`") as $item)
             $db_items[$item['ItemID']] = $item;
 
-
         $itemTypes = array( "ActiveList", "UnsoldList", "BidList", "DeletedFromSoldList", "DeletedFromUnsoldList", "ScheduledList", "SoldList");
-        $itemTypes = array( "ActiveList", "UnsoldList");
+        $itemTypes = array( "ActiveList");
 
         foreach($itemTypes as $type)
             $items[$type] = Ebay_deprecated::get_items($type);
+//        xp($items);
 
         require('blocks/listing_type_navbar.php');
         ?>
@@ -51,6 +51,8 @@ require_once('blocks/head.php');
 
                     foreach($type_items as $item) 
                     {                
+//		        		xp($item);
+
                         $db_item = isset($db_items[(string)$item->ItemID]) ? $db_items[(string)$item->ItemID] : array();
                         require('blocks/items/vendor_item.php');
                     }

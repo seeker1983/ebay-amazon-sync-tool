@@ -35,6 +35,8 @@ $db = new DB($db_name, $db_host, $db_username, $db_pass);
 if(isset($_SESSION['user_id']))
 {
 	$active_user = $_SESSION['user_id'];
+	$_user = new User($active_user);
+
 	$sql = "SELECT * FROM ebay_users WHERE user_id = $active_user";
 	$user = array_map('trim', DB::query_row($sql));
 
