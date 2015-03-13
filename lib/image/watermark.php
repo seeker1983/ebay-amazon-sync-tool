@@ -21,12 +21,16 @@ class Watermark
 
 			imagealphablending($img_res, TRUE); 
 
-			imagecopy($img_res, $watermark, imagesx($img_res)*0.95 - imagesx($watermark) - 5, imagesy($img_res)*0.95 - imagesy($watermark) - 5, 0, 0, imagesx($watermark), imagesy($watermark));
+			//imagecopy($img_res, $watermark, imagesx($img_res)*0.95 - imagesx($watermark) - 5, imagesy($img_res)*0.95 - imagesy($watermark) - 5, 0, 0, imagesx($watermark), imagesy($watermark));
 
 			ob_start(); 
 			    imagejpeg($img_res); 
 			    $contents = ob_get_contents(); 
 			ob_end_clean(); 
+
+			unset($img_res);
+
+			gc_collect_cycles();
 
 			return "data:image/jpeg;base64," . base64_encode($contents);				
 		}

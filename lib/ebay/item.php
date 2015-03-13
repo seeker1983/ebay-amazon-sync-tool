@@ -111,8 +111,8 @@ class Ebay
 		$shippingService = new Types\ShippingServiceOptionsType();
 		$shippingService->ShippingServicePriority = 1;
 		$shippingService->ShippingService = 'Other';
-		$shippingService->ShippingServiceCost = new Types\AmountType(array('value' => 2.00));
-		$shippingService->ShippingServiceAdditionalCost = new Types\AmountType(array('value' => 1.00));
+		$shippingService->ShippingServiceCost = new Types\AmountType(array('value' => 0.00));
+		$shippingService->ShippingServiceAdditionalCost = new Types\AmountType(array('value' => 0.00));
 		$item->ShippingDetails->ShippingServiceOptions[] = $shippingService;
 
 
@@ -275,6 +275,22 @@ class Ebay
 		if(isset($options['CategoryParent'])) $request->CategoryParent = $options['CategoryParent'];
 
 		$response = $service->getCategories($request);		
+
+	 	return $response;	
+	}
+
+	public static function get_suggested_categories($query)
+	{
+		global $service, $token, $user;
+
+		$request = new Types\GetSuggestedCategoriesRequestType();
+
+		$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
+		$request->RequesterCredentials->eBayAuthToken = $token;
+
+		$request->Query = $query;
+
+		$response = $service->getSuggestedCategories($request);	
 
 	 	return $response;	
 	}

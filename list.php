@@ -3,11 +3,22 @@ set_time_limit(0);
 $start_time = time("now");
 require_once('lib/config.php');
 require_once('lib/scrape.php');
+require_once('lib/ebay/item.php');
 require_once('lib/image/watermark.php');
 require_once('blocks/head.php');
 require_once('blocks/menu.php');
 
-if(isset($_GET['sku']))
+if(isset($_GET['data']))
+{
+    $item = (array)json_decode($_GET['data']);
+    $item['offerprice'] = $item['price'];
+	foreach($item['imgs'] as $img)
+	{
+		$item['img'][] = "data:image/jpeg;base64," . base64_encode(file_get_contents($img));
+	}
+
+}
+else if(isset($_GET['sku']))
 {
     $item = scrap_item($sku);
 }
@@ -15,11 +26,9 @@ else if(isset($_GET['url']))
 {
   $url = $_GET['url'];
 
-  $item = scrap_item_url($url);
-
-  //xp(Watermark::add_watermark($item['img']));
-//  xp($item);
+  $item = scrap_item_url($url);  
 }
+
 ?>
 
 
@@ -89,7 +98,8 @@ else if(isset($_GET['url']))
                   </div>
                 </div>
                 <? 
-                   require('blocks/categories_block.php'); 
+                   //require('blocks/categories_block.php'); 
+                   require('blocks/suggested_categories_block.php'); 
                 ?>
 
                 <div class="control-group">
@@ -98,14 +108,16 @@ else if(isset($_GET['url']))
                     <textarea id="desc" name="desc">
                         <span style="font-size:20px"><b style="font-size: 20px;">Product Description:</b></span>
                         <br/><br/>
-                        <?php echo $_GET['desc']; ?>
+                        <?php echo $item['desc']; ?>
                         <br/><br/>
+                        <? if(isset($item['features'])) { ?>
                         <b>Features</b><br>
                         <?php 
                         $features = array_map(function($el){return '<li>' . $el . '</li>';}, $item['features']);
                         echo implode("\n", $features); 
                         ?>
                         <br/><br/>
+                        <? } ?>
                         <b>FREE Shipping</b><br><br>Delivery usually takes 5-10 business days. (Most items are delivered within 5 business days) <br>This item may require an extra 1-2 days to process.<br>We ship to the continental 48 U.S. States only<br>No shipping to P.O. Boxes or APO/FPO<br>We do not offer combined shipping services<br>We do not offer local pickup<br>Tracking Number is provided approximately 48 - 72 hours after shipment<br>We will only ship to authorized Paypal addresses<br>Once an item is marked "shipped" if it does not arrive within 7 days, please feel free to contact us<br>There is a $10 cancellation fee for any order placed but not yet processed<br><br><b>Return Policies</b><br><br>We offer a 30 days return. However, all items must be returned in unused or unopened condition and contain all original materials included with the shipment. An RMA number is required for all returns. Message us for return instructions. Items returned without a RMA number will not be processed. Items defective upon receipt must be packaged in their retail packaging as if new and returned with a detailed description of the problem. Return shipping fees are the customers obligation. We reserve the right to decline any returns if the above guidelines are not followed.<br>For all returned items there will be a 20% return stocking fee.<br><br>In The Unlikely Event That Your Item Has Been DISCONTINUED or Is SOLD OUT, You Will Be Refunded 100%.<br><br><b>Your feedback is very important to us on eBay. We will leave a positive feedback for you in return.</b><br><br><br></p><br></div>
                     </textarea>
                     <script> $('#desc').jqte() </script>
@@ -147,7 +159,7 @@ else if(isset($_GET['url']))
                       <!-- <option value="Days_120"> Days 120  </option> -->
                       <option value="Days_14"> Days 14  </option>
                       <!-- <option value="Days_21"> Days 21  </option> -->
-                      <option value="Days_30"> Days 30  </option>
+                      <option value="Days_30" selected> Days 30  </option>
                       <!-- <option value="Days_5"> Days 5  </option> -->
                       <!-- <option value="Days_60"> Days 60  </option> -->
                       <!-- <option value="Days_90"> Days 90  </option> -->
