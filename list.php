@@ -11,12 +11,6 @@ require_once('blocks/menu.php');
 if(isset($_GET['data']))
 {
     $item = (array)json_decode($_GET['data']);
-    $item['offerprice'] = $item['price'];
-	foreach($item['imgs'] as $img)
-	{
-		$item['img'][] = "data:image/jpeg;base64," . base64_encode(file_get_contents($img));
-	}
-
 }
 else if(isset($_GET['sku']))
 {
@@ -91,6 +85,13 @@ else if(isset($_GET['url']))
                   </div>
                 </div>
                 <div class="control-group">
+                  <label class="control-label" for="searchField">Keywords</label>
+                  <div class="controls">
+                    <input id="title" name="keywords" placeholder="Title" class="input-large" type="text" maxlength="79"
+                    value="<?php echo isset($item['title'])?($item['title']):''; ?>">
+                  </div>
+                </div>
+                <div class="control-group">
                   <label class="control-label" for="searchField">SKU</label>
                   <div class="controls">
                     <input id="sku" name="sku" placeholder="SKU" class="input-large" type="text"
@@ -138,13 +139,6 @@ else if(isset($_GET['url']))
 	                      <img src="<?php echo Watermark::add_watermark($img); ?>">
 	                      <input id="img_<? echo $i; ?>" name="img[]" type="hidden" value="<?php echo htmlentities(Watermark::add_watermark($img)); ?>">
 	                      <a href="#" onclick="$(this).parent().parent().parent().remove(); return false;"> Delete</a>
-	                    </div>
-	                  </div>
-	                  <div class="control-group">
-	                    <label class="control-label" for="searchField">Picture name</label>
-	                    <div class="controls">
-	                      <input id="picture_name" name="picture_name[]" placeholder="" class="input-medium" type="text" 
-	                        value="<?php echo (isset($item['title'])?htmlentities($item['title']):'Picture') . ' ' . ($i + 1); ?>">
 	                    </div>
 	                  </div>
 	              </div>

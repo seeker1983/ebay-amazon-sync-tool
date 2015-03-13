@@ -23,16 +23,16 @@ function scrape(url)
 
 function parse_overstock()
 {
-		imgs=[]; 
+		img=[]; 
 		for (i in os.fullImagesJson.images) {
 //			var path = os.fullImagesJson.images[i].cdnPath
 			var path = os.fullImagesJson.images[i].childImages[2].imagePath
-			imgs.push('http://ak1.ostkcdn.com/images/products/' + path)
+			img.push('http://ak1.ostkcdn.com/images/products/' + path)
 		}
 		data = {
-			imgs: imgs,
+			img: img,
 			title: $('div[itemprop=name] h1').html(),
-			price: $('span[itemprop=price]').html().trim().replace('$',''),
+			offerprice: $('span[itemprop=price]').html().trim().replace('$',''),
 			desc : $('#details_descFull').html().trim(),
 			quantity : $('#addCartMain_quantity select option').length,
 			sku: 'OS' + $('#itmNum').html().replace('Item #: ','')

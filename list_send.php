@@ -14,9 +14,9 @@ if(!isset($_POST['do']))
 
 $item = $_POST;
 
-foreach ($_POST['picture_name'] as $i => $name) {
-    $blob = base64_decode(substr($_POST['img'][$i], strlen('data:image/jpeg;base64,')));
-    $item['gallery'][] = ebay_upload_picture($name, $blob);
+foreach ($_POST['img'] as $img) {
+    $blob = base64_decode(substr($img, strlen('data:image/jpeg;base64,')));
+    $item['gallery'][] = ebay_upload_picture($item['keywords'], $blob);
 }
 
 //$item['gallery'] = array('http://i.ebayimg.sandbox.ebay.com/00/s/MzAwWDI2Mg==/z/MbcAAOSwX-hUzs2F/$_1.JPG?set_id=8800004005');

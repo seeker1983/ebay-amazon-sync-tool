@@ -3,10 +3,10 @@ require(__DIR__ . '/resample.php');
 
 class Watermark
 {
-	public function add_watermark($img)
+	public static function add_watermark($img)
 	{
 		if(preg_match('%^http://.*.jpg%i', trim($img)))
-			$img_string = file_get_contents($img);
+			$img_string = get_http_page($img);
 
 		if(preg_match('%^data:image/jpeg;base64,%', trim($img)))
 			$img_string = base64_decode(preg_replace('%^data:image/jpeg;base64,%', '', trim($img)));
