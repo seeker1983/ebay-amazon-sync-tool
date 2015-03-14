@@ -281,16 +281,16 @@ class Ebay
 
 	public static function get_suggested_categories($query)
 	{
-		global $service, $token, $user;
+		global $real_service, $real_token, $user;
 
 		$request = new Types\GetSuggestedCategoriesRequestType();
 
 		$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
-		$request->RequesterCredentials->eBayAuthToken = $token;
+		$request->RequesterCredentials->eBayAuthToken = $real_token;
 
 		$request->Query = $query;
 
-		$response = $service->getSuggestedCategories($request);	
+		$response = $real_service->getSuggestedCategories($request);	
 
 	 	return $response;	
 	}

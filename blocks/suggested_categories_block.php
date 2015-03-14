@@ -1,6 +1,7 @@
 <?
 require_once('lib/ebay/item.php');
 
+
 $response = Ebay::get_suggested_categories($item['title']);
 
 if($response->CategoryCount == 0)

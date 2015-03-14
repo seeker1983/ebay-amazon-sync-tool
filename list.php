@@ -21,6 +21,7 @@ else if(isset($_GET['url']))
   $url = $_GET['url'];
 
   $item = scrap_item_url($url);  
+  $item['desc'] = $_GET['desc']; // Amazon w/a
 }
 
 ?>
