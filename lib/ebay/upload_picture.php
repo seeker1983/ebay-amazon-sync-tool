@@ -6,11 +6,11 @@ use \DTS\eBaySDK\Trading\Enums;
 
 function ebay_upload_picture($name, $blob)
 {
-	global $service, $token;
+	global $service, $token, $real_service, $real_token;
 
 	$request = new Types\UploadSiteHostedPicturesRequestType();
 	$request->RequesterCredentials = new Types\CustomSecurityHeaderType();
-	$request->RequesterCredentials->eBayAuthToken = $token;
+	$request->RequesterCredentials->eBayAuthToken = $real_token;
 
 	$request->PictureName = $name;
 
@@ -18,7 +18,7 @@ function ebay_upload_picture($name, $blob)
 
 	$request->attachment(file_get_contents('d:/photo/test.jpg'), 'image/jpeg');
 
-	$response = $service->uploadSiteHostedPictures($request);
+	$response = $real_service->uploadSiteHostedPictures($request);
 
 	if ($response->Ack !== 'Failure') 
 		return $response->SiteHostedPictureDetails->FullURL;

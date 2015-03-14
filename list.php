@@ -160,16 +160,11 @@ else if(isset($_GET['url']))
                       <!-- <option value="Days_90"> Days 90  </option> -->
                       <option value="GTC"> Until cancelled </option>
                     </select>
-
-
-                  </div>
-
-
-            
+                  </div>       
                
                 <div class="control-group">
                   <div class="controls">
-                    <button type="submit" name="do" class="btn btn-primary">Send listing to ebay</button>
+                    <button type="submit" name="do" class="btn btn-primary" onclick='return validate();'>Send listing to ebay</button>
                   </div>
                 </div>
         </fieldset>
@@ -177,6 +172,16 @@ else if(isset($_GET['url']))
     <div class="spacer"></div>
 
     <script>
+    function validate()
+    {
+      if(! $('#category_id').val() )
+      {
+          alert('Please choose category!');
+          return false;
+      }
+
+      return true;
+    }
     </script>
 
     
