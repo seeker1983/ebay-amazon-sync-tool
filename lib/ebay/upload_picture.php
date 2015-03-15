@@ -14,9 +14,10 @@ function ebay_upload_picture($name, $blob)
 
 	$request->PictureName = $name;
 
-	file_put_contents('d:/photo/test.jpg', $blob);
-
-	$request->attachment(file_get_contents('d:/photo/test.jpg'), 'image/jpeg');
+//	file_put_contents('d:/photo/test.jpg', $blob);
+//
+//	$request->attachment(file_get_contents('d:/photo/test.jpg'), 'image/jpeg');
+	$request->attachment($blob, 'image/jpeg');
 
 	$response = $real_service->uploadSiteHostedPictures($request);
 

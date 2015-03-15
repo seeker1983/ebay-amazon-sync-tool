@@ -21,28 +21,36 @@ function scrape(url)
 		parse_overstock();
 	}
 
-	if(location.href.indexOf('http://www.hayneedle.com') == 0) /* Hayneedle */
-	{	
-		parse_hayneedle();
-	}
-
-	if(location.href.indexOf('http://www.wayfair.com') == 0) /* Wayfair */
-	{	
-		parse_wayfair();
-	}
-
-	if(location.href.indexOf('http://www.walmart.com') == 0) /* Walmart */
-	{	
-		parse_walmart();
-	}
+//	if(location.href.indexOf('http://www.hayneedle.com') == 0) /* Hayneedle */
+//	{	
+//		parse_hayneedle();
+//	}
+//
+//	if(location.href.indexOf('http://www.wayfair.com') == 0) /* Wayfair */
+//	{	
+//		parse_wayfair();
+//	}
+//
+//	if(location.href.indexOf('http://www.walmart.com') == 0) /* Walmart */
+//	{	
+//		parse_walmart();
+//	}
 }
 
 function parse_overstock()
 {
-		img=[]; 
-		for (i in os.fullImagesJson.images) {
-			var path = os.fullImagesJson.images[i].childImages[2].imagePath
-			img.push('http://ak1.ostkcdn.com/images/products/' + path)
+		img=[]; 		
+		if(os.fullImagesJson)
+		{
+			for (i in os.fullImagesJson.images) 
+			{
+				var path = os.fullImagesJson.images[i].childImages[2].imagePath
+				img.push('http://ak1.ostkcdn.com/images/products/' + path)
+			}
+		}
+		else
+		{
+			img.push($('#activeImage').attr('src'))
 		}
 		data = {
 			img: img,
