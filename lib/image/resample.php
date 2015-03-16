@@ -24,6 +24,20 @@ function resample($img)
 		}
 	}
 
+	if(imagesx($img)<500 or imagesy($img)<500)
+	{
+		if(imagesx($img) > imagesy($img))
+		{
+			$width = 500;
+			$height = 500 * imagesy($img) / imagesx($img);
+		}
+		else
+		{
+			$height = 500;
+			$width = 500 * imagesx($img) / imagesy($img);
+		}
+	}
+
     $dst = imagecreatetruecolor($width, $height);
 
 	$white = imagecolorallocate($dst, 255, 255, 255);
