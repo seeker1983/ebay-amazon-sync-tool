@@ -16,8 +16,10 @@ $item = $_POST;
 
 $item['desc'] = str_replace(array('®','©'),'', $item['desc']);
 
+
 foreach ($_POST['img'] as $img) {
     $blob = base64_decode(substr($img, strlen('data:image/jpeg;base64,')));
+    print $img;
     $item['gallery'][] = ebay_upload_picture($item['keywords'], $blob);
 }
 

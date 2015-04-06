@@ -24,6 +24,8 @@ else if(isset($_GET['url']))
   $item['desc'] = $_GET['desc']; // Amazon w/a
 }
 
+$item['img'][] = 'data:image/jpeg;base64,' . base64_encode(file_get_contents('watermark/freeshipping.jpg'));
+
 ?>
 
 
@@ -133,7 +135,7 @@ else if(isset($_GET['url']))
                 ?>
 
                 <? foreach(array_values($item['img']) as $i => $img) { ?>
-                  <div>
+                <div>
 	                  <div class="control-group">
 	                    <label class="control-label" for="searchField">Pictures</label>
 	                    <div class="controls">
@@ -143,7 +145,7 @@ else if(isset($_GET['url']))
 	                    </div>
 	                  </div>
 	              </div>
-                <? } ?>
+                <? } ?>    
                   <div class="control-group">
                     <label class="control-label" for="searchField">Listing duration</label>
                     <select name="duration">

@@ -15,6 +15,7 @@ function xs($v, $v2 = false, $v3 = false, $v4 = false)
     if($v2) var_export($v2);
     if($v3) var_export($v3);
     if($v4) var_export($v4);
+	debug_print_backtrace();
     exit;
 }
 
@@ -27,6 +28,7 @@ function xp($v, $v2 = false, $v3 = false, $v4 = false)
     if($v2) var_export($v2);
     if($v3) var_export($v3);
     if($v4) var_export($v4);
+	debug_print_backtrace();
     exit;
 }
 

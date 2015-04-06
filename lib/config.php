@@ -17,6 +17,24 @@ if($_SERVER['HTTP_HOST'] === 'ezonsync.ru')
 
 	define('LOCAL_SERVER', TRUE);
 }
+elseif($_SERVER['HTTP_HOST'] === 'znz.edu.vn.ua')
+{
+	$db_host = "localhost";
+	$db_name = "parsel";
+	$db_username = "parsel";
+	$db_pass = "parsel1q";	
+
+	define('LOCAL_SERVER', FALSE);
+}
+elseif($_SERVER['HTTP_HOST'] === 'dropshippingsync.com')
+{
+	$db_host = "localhost";
+	$db_name = "ezonsync";
+	$db_username = "ezonsync";
+	$db_pass = "ezonsync1q";	
+
+	define('LOCAL_SERVER', FALSE);
+}
 else
 {
 	$db_host = "jgiven79.mydomaincommysql.com";
@@ -31,6 +49,14 @@ foreach(glob('lib/autoload/*.php') as $lib)
     require_once($lib);
 
 $db = new DB($db_name, $db_host, $db_username, $db_pass);
+
+foreach (DB::query_rows("select * from ebay_users") as $row) 
+{
+//	DB::query("update ebay_users set token='" .decrypt($row['token']). "' where user_id=${row['user_id']}");
+}
+
+
+
 
 if(isset($_SESSION['user_id']))
 {
@@ -49,7 +75,8 @@ if(isset($_SESSION['user_id']))
 	//xd(encrypt("AgAAAA**AQAAAA**aAAAAA**bajSVA**nY+sHZ2PrBmdj6wVnY+sEZ2PrA2dj6wFk4GhDZKKpwydj6x9nY+seQ**zjgDAA**AAMAAA**xN7nAFSZwy0OULgz4hYVevvVk4DmgZp38S0PkqCtN0v2eNAviRrZuoYFbNWzXuyGc+ebcPkWaL1hY7IKm0BUCiFShZQo+p70ZObH0cotvF9xu9jg8Oj8M/Tr7ocaRf3JYqwL9igtJb6RXM7F0r69OcN3G/mu4iOSSIWjMeDmG7WbkjzVlQwidWAJlne8nMviZpTakBXweGIX3AdpfM9MSVO2mPpJZwQZiIqqEOIvHnTn1lFgKIkPU66jFCeeFv1ykWmkad1rKCJjOzpMKSB3gpf2wr3CG6voueYvt6gYzJ/+6Xb0vuYLV34cr8bX7QQPfQx/xdIFuCW1ZLrXaEvsMsojBgHwvIdUYZDMf3cK0P+XQN8yIALKYKnRDMXCuGtskYhNcswtDKu1kCtx9RAEt+JN28nj7dv2VfMsrt2E4OoZeZ29eQdT/mCXEFAyDz9HlUU5TtiVtRh/3N6wIgLT7/J169iLpDmEDKAp6W6F6MiQ82jeNxq/khUEdfOAZnkR73CyZ4ZatY1JvKJeo5XIgOuB6DkT7frMJltKIedqzSeDz+nBL/kRdNzyW5asaR0H1qg02C+3jaYRHURLiReBGN7YnGBxgVsiBzilMuz2D3m6n3veQAZWXf92QIBR2XVqcR2Ie/qw4L2eJtmFxUc75ZwQSOZgsyuHb1I+XBpdhHY0IDxrpBhnujlizZ3D0FUJWsACK1F9hte28XzlvSirWlmEPiK8T6YbWNz2SHU7C+ap+0PXSs7xgZ0JTLI706/2")); // TESTUSER_jgiven
 	//mysql_query("UPDATE ebay_users set `token`='$token' WHERE user_id = $active_user");
 
-	$token = decrypt($user['token']);
+//	$token = decrypt($user['token']);
+	$token = $user['token'];
 	$ebayusername=$user['ebay_name'];
 
 	if($user['sandbox'])
@@ -65,6 +92,8 @@ if(isset($_SESSION['user_id']))
 
 $COMPATIBILITYLEVEL = '800';
 $SiteId = 0;
+
+
 
 
 

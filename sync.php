@@ -17,7 +17,7 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 {
 	/* Windows enviroment */
 	$source = 'd:/dev/denwer/home/ezonsync.ru/www';	
-	$target = 'j:/public_html/ezonsync';
+	$target = 'w:/public_html/ezonsync';
 	$id_file = $target . '/' . 'git.id';
 
 	chdir($source);
@@ -25,7 +25,13 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 	if(file_exists($id_file))
 		$last_id = file_get_contents($id_file);
 	else
-		die("Please create file $id_file with current git version on ftp server.");
+	{
+		$last_id = trim(`git rev-parse HEAD~2`);
+		file_put_contents($id_file, $last_id);
+		print("Created gid.id with revision $last_id");
+	}
+
+
 
 	$new_id = trim(`git rev-parse HEAD`);
 

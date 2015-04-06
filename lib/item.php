@@ -100,8 +100,8 @@ class Item
             }
 
 		}
-        if(!isset($this->vendor_data['prime']))
-            xp($this->vendor_data);
+//        if(!isset($this->vendor_data['prime']))
+//            xp($this->vendor_data);
 
         if($this->vendor_data['prime'] != 'Yes')
             $this->vendor_data['quantity'] = 0;
@@ -146,31 +146,40 @@ class Item
 
 		$this->scrape();
 
-        if($this->vendor_data['prime'] != 'Yes')
+        if($this->vendor_data['scrapok'])
         {
-            if($this->exists())
+            if($this->vendor_data['prime'] != 'Yes')
             {
-                $_user->notify("Item is out of stock", $this->get_links() . ' is out of stock');
+                if($this->exists())
+                {
+                    $this->log("Out of stock");
+    //                $_user->notify("Item is out of stock", $this->get_links() . ' is out of stock');
 
-                /* End of Deletion code*/
+                    /* End of Deletion code*/
+                }
+
             }
+            else
+            {            
+                $this->load_ebay_data();
 
+                if(! $this->exists())
+                    $this->create_local();
+
+                $this->revise(array(
+                    'vendor-price' => $this->vendor_data['offerprice'],
+                    'vendor_quantity' => $this->vendor_data['quantity'],
+                    'ebay_quantity' => (string) $this->ebay_data->QuantityAvailable,
+                    'max_quantity' => $this->local_data['max_quantity'],
+                    'profit-pc' => $this->get_profit_ratio(),
+                    'price' => $this->rec_price()
+                    ));
+            }
+                
         }
         else
-        {            
-            $this->load_ebay_data();
-
-            if(! $this->exists())
-                $this->create_local();
-
-            $this->revise(array(
-                'vendor-price' => $this->vendor_data['offerprice'],
-                'vendor_quantity' => $this->vendor_data['quantity'],
-                'ebay_quantity' => (string) $this->ebay_data->QuantityAvailable,
-                'max_quantity' => $this->local_data['max_quantity'],
-                'profit-pc' => $this->get_profit_ratio(),
-                'price' => $this->rec_price()
-                ));
+        {
+            $this->log("Scrape failed.");
         }
     }
 

@@ -21,16 +21,16 @@ function scrape(url)
 		parse_overstock();
 	}
 
-//	if(location.href.indexOf('http://www.hayneedle.com') == 0) /* Hayneedle */
-//	{	
-//		parse_hayneedle();
-//	}
-//
-//	if(location.href.indexOf('http://www.wayfair.com') == 0) /* Wayfair */
-//	{	
-//		parse_wayfair();
-//	}
-//
+	if(location.href.indexOf('http://www.hayneedle.com') == 0) /* Hayneedle */
+	{	
+		parse_hayneedle();
+	}
+
+	if(location.href.indexOf('http://www.wayfair.com') == 0) /* Wayfair */
+	{	
+		parse_wayfair();
+	}
+
 //	if(location.href.indexOf('http://www.walmart.com') == 0) /* Walmart */
 //	{	
 //		parse_walmart();
@@ -83,7 +83,7 @@ function parse_hayneedle()
 			features: features,
 			desc : $('div[tab-id=description] div:last span p').html(),
 			quantity : 1,
-			sku: $('div.product-column-cont div span:eq(1)').html()
+			sku: $('div.product-column-cont div span:eq(1)').html().replace('HN-', 'HN')
 		}
 
 		var target_url = url + "/list.php?url=" + encodeURIComponent(location.href) + "&data=" + encodeURIComponent(JSON.stringify(data))
