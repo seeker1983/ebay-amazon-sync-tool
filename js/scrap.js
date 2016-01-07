@@ -31,10 +31,10 @@ function scrape(url)
 		parse_wayfair();
 	}
 
-//	if(location.href.indexOf('http://www.walmart.com') == 0) /* Walmart */
-//	{	
-//		parse_walmart();
-//	}
+	if(location.href.indexOf('http://www.walmart.com') == 0) /* Walmart */
+	{	
+		parse_walmart();
+	}
 }
 
 function parse_overstock()
@@ -56,9 +56,9 @@ function parse_overstock()
 			img: img,
 			title: $('div[itemprop=name] h1').html(),
 			offerprice: $('span[itemprop=price]').html().trim().replace('$',''),
-			desc : $('#details_descFull').html().trim(),
+//			desc : $('#details_descFull').html().trim(),
 			quantity : $('#addCartMain_quantity select option').length,
-			sku: 'OS' + $('#itmNum').html().replace('Item #: ','')
+//			sku: 'OS' + $('#itmNum').html().replace('Item #: ','')
 		}
 
 		var target_url = url + "/list.php?url=" + encodeURIComponent(location.href) + "&data=" + encodeURIComponent(JSON.stringify(data))
@@ -180,37 +180,9 @@ function open_url(url)
 $('li.ng-scope')
 
 /* Bookmarklet 
-** 
-url='http://ezonsync.ru';script=document.createElement('script');script.src = url + '/js/scrap.js?' + Date.now(); script.onload=function(){scrape(url);};document.body.appendChild(script);
+Install this code to javascript bookmarklet
 
-
-
+javascript:url='http://ezonsync.ru';script=document.createElement('script');script.src = url + '/js/scrap.js?' + Date.now(); script.onload=function(){scrape(url);};document.body.appendChild(script);
 
 */
 
-
-/*
-if (!($ = window.jQuery)) 
-{
-    script = document.createElement( 'script' );
-   script.src = 'http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js'; 
-    script.onload=releasetheKraken;
-    document.body.appendChild(script);
-} 
-else {
-    Process();
-}
- 
-function Process() {	
-	items = 
-	{
-		shop_name: $('a.orderInfo-shop:first').text(),
-		shop_url: $('a.orderInfo-shop:first').attr('href'),
-		total_price: parseFloat($('span.price:first').text()),
-	}
-	data=encodeURIComponent(JSON.stringify(items))
-
-	console.log(data)
-}
-
-*/

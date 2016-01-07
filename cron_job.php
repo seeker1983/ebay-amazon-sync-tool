@@ -34,7 +34,7 @@ foreach($users as $user_data)
 
     $paypal_email = trim($user_data['paypal_address']);
 
-    $token = decrypt($user_data['token']);
+    $token = ($user_data['token']);
 
     $service = new \DTS\eBaySDK\Trading\Services\TradingService(array(
         'apiVersion' => $config['tradingApiVersion'],
@@ -61,6 +61,9 @@ foreach($users as $user_data)
             continue;     
 
         if(!empty($_GET['id']) && $_GET['id'] != $ebay_item->ItemID)
+            continue;
+
+        if(!empty($_GET['SKU']) && $_GET['SKU'] != $ebay_item->SKU)
             continue;
 
         $item = Item::from_ebay_data($ebay_item);
@@ -99,9 +102,20 @@ foreach($users as $user_data)
         if(!empty($_GET['id']) && $_GET['id'] != $ebay_item->ItemID)
             continue;
 
+        if(!empty($_GET['SKU']) && $_GET['SKU'] != $ebay_item->SKU)
+            continue;
+
         $item = Item::from_ebay_data($ebay_item);
         $item->scrape($ebay_item->SKU);
         sleep(2);
+
+        if(! $item->vendor_data['scrapok'])
+        {
+            echo($ebay_item->ItemID . " => " . $ebay_item->SKU . " scrape FAIL<br>");
+            continue;
+        }
+
+        echo($ebay_item->ItemID . " => " . $ebay_item->SKU . " scrape OK<br>");
 
         $item->update();
 

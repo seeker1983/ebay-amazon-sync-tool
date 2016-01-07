@@ -17,7 +17,7 @@ if(preg_match('%^D:\\\\dev\\\\denwer%', $dir))
 {
 	/* Windows enviroment */
 	$source = 'd:/dev/denwer/home/ezonsync.ru/www';	
-	$target = 'w:/public_html/ezonsync';
+	$target = 'w:/public_html';
 	$id_file = $target . '/' . 'git.id';
 
 	chdir($source);

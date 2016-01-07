@@ -1,7 +1,6 @@
 <?
 if (!isset($_SESSION['user_id']) && !preg_match('%index.php$%', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) )) 
 {
-    die( parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) );
     header("Location:index.php");
     exit;
 }

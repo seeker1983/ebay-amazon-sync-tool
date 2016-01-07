@@ -103,7 +103,7 @@ $item['img'][] = 'data:image/jpeg;base64,' . base64_encode(file_get_contents('wa
                 </div>
                 <? 
                    //require('blocks/categories_block.php'); 
-                   require('blocks/suggested_categories_block.php'); 
+//                   require('blocks/suggested_categories_block.php'); 
                 ?>
 
                 <div class="control-group">
